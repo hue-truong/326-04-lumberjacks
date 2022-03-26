@@ -42,7 +42,10 @@ body{
     height: 100px;
     float: left;
 }
-  
+.nav-li-right{
+    float: right;
+}
+
 .nav-li-a {
     display: block;
     color: rgb(194, 194, 194);
