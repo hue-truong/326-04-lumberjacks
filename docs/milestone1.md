@@ -30,6 +30,14 @@ Below is our current interactivity wireframe for the Lancer website:
 
 Part 2: HTML and CSS
 
-Here is the screenshot of our fully developed home page:
+Homepage:
 
-![Alt](/ "Home page")
+![Alt](/home.png "Landing page")
+
+Jobs page:
+
+![Alt](/jobs.png "Jobs page")
+
+Companies page:
+
+![Alt](/company.png "Companies page")
