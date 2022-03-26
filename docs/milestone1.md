@@ -25,22 +25,26 @@ Part 1: Wireframe
 
 Below is our current interactivity wireframe for the Lancer website:
 
-![Alt](/wireframe.png "Lancer Wireframe")
+![Alt](wireframe.png "Lancer Wireframe")
 
 
 Part 2: HTML and CSS
 
 Homepage:
 
-![Alt](/home.png "Landing page")
+![Alt](home.png "Landing page")
 
 Jobs page:
 
-![Alt](/jobs.png "Jobs page")
+![Alt](jobs.png "Jobs page")
 
 Companies page:
 
-![Alt](/company.png "Companies page")
+![Alt](company.png "Companies page")
+
+About Us page:
+
+![Alt](about.png "About Us page")
 
 
 Part 3: Division of labor
