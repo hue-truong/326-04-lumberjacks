@@ -10,7 +10,7 @@ We have made a few minor changes in user to data interaction since Milestone 0. 
 
 * Upon clicking a company name, users will be directed to a comapny page showing past projects, current projects, and a link to their website, with additional contact details.
 
-* Looking to the navbar, users clicking "Jobs" will see an expanded version of the home page sections, with jobs seperated categorically (by field, such as tech, literature, data analytics, etc).
+* Looking to the navbar, users clicking "Jobs" will see an expanded version of the home page sections, with jobs seperated categorically (by field, such as tech, architecture, data analytics, etc).
 
 * "Companies" will have a list of projects seperated by company, once again similar to the home page and job page.
 
@@ -25,19 +25,34 @@ Part 1: Wireframe
 
 Below is our current interactivity wireframe for the Lancer website:
 
-![Alt](/wireframe.png "Lancer Wireframe")
+![Alt](wireframe.png "Lancer Wireframe")
 
 
 Part 2: HTML and CSS
 
 Homepage:
 
-![Alt](/home.png "Landing page")
+![Alt](home.png "Landing page")
 
 Jobs page:
 
-![Alt](/jobs.png "Jobs page")
+![Alt](jobs.png "Jobs page")
 
 Companies page:
 
-![Alt](/company.png "Companies page")
+![Alt](company.png "Companies page")
+
+About Us page:
+
+![Alt](about.png "About Us page")
+
+
+Part 3: Division of labor
+
+Damon: Worked on majority of the wireframe and markdown documentation, created list of user to data interactions, provided input on the design of the jobs and companies pages.
+
+Mustafa: Processed and implemented company logos for the main, jobs, and companies pages, searched for good UI examples to use as a template for our site, edited main.css, and worked on HTML for jobs and companies.
+
+Hue: Worked on majority of HTML and CSS coding, developed the basic layout of the home page and currently developed sub-pages.
+
+Ashwin: Was away during our group sessions.
