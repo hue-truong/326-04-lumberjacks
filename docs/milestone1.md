@@ -51,7 +51,7 @@ Part 3: Division of labor
 
 Damon: Worked on majority of the wireframe and markdown documentation, created list of user to data interactions, provided input on the design of the jobs and companies pages.
 
-Mustafa: Processed and implemented company logos, searched for good UI examples to use as a template for our site, some additional coding for the homepage.
+Mustafa: Processed and implemented company logos for the main, jobs, and companies pages, searched for good UI examples to use as a template for our site, edited main.css, and worked on HTML for jobs and companies.
 
 Hue: Worked on majority of HTML and CSS coding, developed the basic layout of the home page and currently developed sub-pages.
 
