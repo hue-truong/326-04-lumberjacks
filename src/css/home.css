@@ -57,7 +57,21 @@
 }
 .grid-item {
     border-radius: 4px;
-    background-color: rgb(49, 49, 49);
+    background-color: rgb(80, 80, 80);
     height: 200px;
     width: 240px;
+    transition: background-color 0.3s ease-out 100ms;
+}
+
+.grid-item:hover{
+
+    background-color: rgb(187, 187, 187);
+}
+
+.img{
+    height: 100px;
+    width: 100px;
+    position: relative;
+    left: 75px;
+    top: 45px;
 }
