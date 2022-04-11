@@ -57,7 +57,7 @@
 }
 .grid-item {
     border-radius: 4px;
-    background-color: rgb(80, 80, 80);
+    background-color: hsl(0, 0%, 31%);
     height: 200px;
     width: 240px;
     transition: background-color 0.3s ease-out 100ms;
@@ -74,4 +74,24 @@
     position: relative;
     left: 75px;
     top: 45px;
+}
+
+.button2{
+    background-image: url(/src/media/company_logos/Google_Logo.png);
+    background-size: 100px 100px;
+    cursor: pointer;
+    border: none;
+    height: 100px;
+    width: 100px;
+    background-color: Transparent;
+    position: relative;
+    left: 75px;
+    top: 45px;
+    filter: drop-shadow(0px 0px 5px #505050);
+    transition: filter 0.3s ease-out 100ms;
+}
+
+.button2:hover{
+    transition: 0.3s;
+    filter: drop-shadow(0px 0px 5px #000000);
 }

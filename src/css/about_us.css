@@ -1,0 +1,107 @@
+.display-container{
+    padding-left: 200px;
+    padding-right: 200px;
+    padding-top: 100px;
+}
+#broll{
+    position: absolute; 
+    right: 0; 
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+    width: auto; 
+    height: auto; 
+    z-index: -100;
+    background-size: cover;
+    overflow: hidden;
+}
+.showcase-container{
+    overflow: hidden;
+    text-align: center;
+    height: 100px;
+}
+.showcase-overlay{
+    position: relative;
+    padding-top:25px;
+}
+.showcase-tagline{
+    font-weight:bold;
+    font-size: 40px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: black;
+}
+.regular-text{
+    font-weight:initial;
+    font-size: 22px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: black;
+}
+
+.crew-tagline{
+    font-weight:bold;
+    font-size: 40px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: black;
+    position: absolute;
+    top: 500px;
+    left: 200px
+
+}
+
+.content-container{
+    display: flex;
+    justify-content: center;
+    height: 1300px;
+    margin-right: -10px;
+    padding-right: 100px;
+    background-color: rgb(245, 245, 245);
+}
+.grid-group{
+    padding-top: 20px;
+    padding-bottom: 100px;
+}
+.grid-container{
+    display: grid;
+    grid-template-columns: repeat(8, auto);
+    grid-gap: 10px;
+    width: 500px;
+    height: 500px;
+    padding-top: 10px;
+    position: absolute;
+    left: 200px;
+    top: 550px;
+    
+}
+.grid-title{
+    font-size: 25px;
+}
+.grid-item {
+    border-radius: 4px;
+    background-color: rgb(80, 80, 80);
+    height: 300px;
+    width: 200px;
+    transition: background-color 0.3s ease-out 100ms;
+}
+
+.grid-item:hover{
+
+    background-color: rgb(102, 102, 102);
+}
+.img{
+    transition: 0.5s;
+    height: 200px;
+    width: 200px;
+    position: relative;
+    left: 0px;
+    top: 0px;
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.employee-name {
+    display: block;
+    color: rgb(194, 194, 194);
+    text-align: center;
+    padding: 25px 16px; /* this is where you move up and down, left and right*/
+    text-decoration: none;
+}
