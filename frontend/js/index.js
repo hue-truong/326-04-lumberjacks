@@ -6,7 +6,7 @@ const trendingCompanies = document.getElementById("trendingCompanies");
 const tpResponse = await fetch(`/get-top-picks`, {
     method: 'GET',
   });
-  const tcResponse = await fetch(`/get-top-picks`, {
+  const tcResponse = await fetch(`/get-companies`, {
     method: 'GET',
   });
 
