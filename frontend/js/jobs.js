@@ -1,7 +1,7 @@
 const topPick = document.getElementById("topPick");
 const trendingCompanies = document.getElementById("trendingCompanies");
 
-const tpResponse = await fetch(`/get-top-picks`, {
+const tpResponse = await fetch(`/jobs/get-jobs`, {
     method: 'GET',
   });
   const tcResponse = await fetch(`/get-top-picks`, {

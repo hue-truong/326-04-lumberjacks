@@ -1,5 +1,3 @@
-const { faker } = require('@faker-js/faker');
-
 const topPick = document.getElementById("topPick");
 const trendingCompanies = document.getElementById("trendingCompanies");
 
