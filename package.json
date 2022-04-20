@@ -1,0 +1,14 @@
+{
+    "name": "326-04-lumberjacks",
+    "type": "module",
+    "main": "backend.js",
+    "dependencies": {
+        "express": "^4.17.3",
+        "morgan": "^1.10.0",
+        "pg": "8.7.3"
+    },
+        "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node backend.js"
+    }
+}
