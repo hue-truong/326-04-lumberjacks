@@ -1,28 +1,38 @@
 const topPick = document.getElementById("topPick");
-const trendingCompanies = document.getElementById("trendingCompanies");
 
-const tpResponse = await fetch(`/jobs/get-jobs`, {
+const jobsResponse = await fetch(`/jobs/get-jobs`, {
     method: 'GET',
   });
-  const tcResponse = await fetch(`/get-top-picks`, {
-    method: 'GET',
-  });
+const response = await tpResponse.json();
 
+const technologyArr = response[0];
+const architectureArr = response[1];
+const data_analysisArr = response[2];
+const entertainmentArr = response[3];
 
 for(let i = 0; i<5; ++i){
-
-    //fetch top-picks
-    const image1 = tpResponse[i];
-    const data1 = await tpResponse.json();
-    const tpDiv = document.createElement(`<img><a href=${image1}><img>`);
-    topPick.appendChild(tpDiv);
+    
+    //technology
+    
+    const technologyData = technologyArr[i];
+    const technologyDiv = document.createElement(`<img src="${technologyData.img}" alt="${technologyData.name}"><img>`);
+    topPick.appendChild(technologyDiv);
 
       
-    //fetch trending-companies
+    //architecture
     
-    const image2 = tcResponse[i];
-    const data2 = await tcResponse.json();
-    const tcDiv = document.createElement(`<img><a href=${image2}><img>`);
-    trendingCompanies.appendChild(tcDiv);
+    const architectureData = architectureArr[i];
+    const architectureDiv = document.createElement(`<img src="${architectureData.img}" alt="${technologyData.name}"><img>`);
+    topPick.appendChild(architectureDiv);
 
+    //data_analysis
+    
+    const data_analysisData = data_analysisArr[i];
+    const data_analysisDiv = document.createElement(`<img src="${data_analysisData.img}" alt="${data_analysisData.name}"><img>`);
+    topPick.appendChild(tcDiv);
+
+    //entertainment
+    const entertainmentData = entertainmentArr[i];
+    const entertainmentDiv = document.createElement(`<img src="${entertainmentData.img}" alt="${entertainmentData.name}"><img>`);
+    topPick.appendChild(entertainmentDiv);
 }

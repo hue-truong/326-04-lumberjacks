@@ -16,7 +16,7 @@ import { faker } from '@faker-js/faker';
 
 const app = express();
 const port = 3000;
-app.use(logger('dev'));
+app.use(logger('dev'));``
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
