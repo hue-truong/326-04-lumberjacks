@@ -109,20 +109,20 @@ app.get('/companies/get-trending-companies', jsonParser, async (req, r) => {
     r.status(200).send(test)
 })
 
-// app.get('/companies/get-jobs', jsonParser, async (req, r) => {
+app.get('/companies/get-companies', jsonParser, async (req, r) => {
     
-//     const test = new Array(5).fill().map(x => {
-//         return {
-//             name: faker.company.companyName(),
-//             img: faker.image.cats(512, 512, true)
-//         }
-//     })
+    const test = new Array(5).fill().map(x => {
+        return {
+            name: faker.company.companyName(),
+            img: faker.image.cats(512, 512, true)
+        }
+    })
 
-//     r.status(200).send(test)
-// })
-const jobs = [ 'UI Artist', 'Applications Development', 'Software Development' ]
+    r.status(200).send(test)
+})
+const job_titles = [ 'UI Artist', 'Applications Development', 'Software Development' ]
 app.get('/companies/get-jobs', jsonParser, async (req, r) => {
-    const name = faker.business.name
+    const name = faker.company.companyName()
     const img = faker.image.business(512, 512, true)
     const test = new Array(5).fill().map(x => {
         return {
