@@ -17,7 +17,8 @@ import { faker } from '@faker-js/faker';
 const jsonParser = express.json();
 const app = express();
 const port = 3000;
-app.use(logger('dev'));``
+
+app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -108,33 +109,26 @@ app.get('/companies/get-trending-companies', jsonParser, async (req, r) => {
     r.status(200).send(test)
 })
 
-app.get('/companies/get-trending-companies', jsonParser, async (req, r) => {
+// app.get('/companies/get-jobs', jsonParser, async (req, r) => {
+    
+//     const test = new Array(5).fill().map(x => {
+//         return {
+//             name: faker.company.companyName(),
+//             img: faker.image.cats(512, 512, true)
+//         }
+//     })
+
+//     r.status(200).send(test)
+// })
+const jobs = [ 'UI Artist', 'Applications Development', 'Software Development' ]
+app.get('/companies/get-jobs', jsonParser, async (req, r) => {
+    const name = faker.business.name
+    const img = faker.image.business(512, 512, true)
     const test = new Array(5).fill().map(x => {
         return {
-            name: faker.company.companyName(),
-            img: faker.image.cats(512, 512, true)
-        }
-    })
-
-    r.status(200).send(test)
-})
-
-app.get('/companies/get-trending-companies', jsonParser, async (req, r) => {
-    const test = new Array(5).fill().map(x => {
-        return {
-            name: faker.company.companyName(),
-            img: faker.image.cats(512, 512, true)
-        }
-    })
-
-    r.status(200).send(test)
-})
-
-app.get('/companies/get-companies', jsonParser, async (req, r) => {
-    const test = new Array(5).fill().map(x => {
-        return {
-            name: faker.company.companyName(),
-            img: faker.image.business(512, 512, true)
+            name: name,
+            img: img,
+            job_title: faker.random.arrayElement(job_titles)
         }
     })
 
