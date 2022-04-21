@@ -3,36 +3,40 @@ const trendingCompanies = document.getElementById("trendingCompanies");
 
 
 async function fetchTopPics(){
-  const tpResponse = await fetch(`/get-top-picks`, {
+  const tpResponse = await fetch(`http://localhost:3000/companies/get-top-picks`
+  , {
     method: 'GET',
     
-  }).then(r => console.log(r));
-  return tpResponse;
+  })
+  const data = await tpResponse.json();
+  console.log(data);
+  return data;
 }
 async function fetchTopCompanies(){
-  const tcResponse = await fetch(`/get-top-picks`, {
+  const tcResponse = await fetch(`http://localhost:3000/companies/get-top-picks`
+  , {
     method: 'GET',
   });
-  return tcResponse;
+  const data = await tcResponse.json();
+  return data;
 }
 
 for(let i = 0; i<5; ++i){
 
     //fetch top-picks
 
-    const response1 = await fetchTopPics().then;
+    const response1 = await fetchTopPics();
+    const data1 = response1[i];
     
-    const tpDiv = document.createElement(`<img src="${data1.img}" alt="${data1.name}"><img>`);
-    topPick.appendChild(tpDiv);
+    topPick.innerHTML = `<img src="${data1.img}" alt="${data1.name}"><img>`;
 
     
     //fetch trending-companies
-    const response2 = await fetchTopCompanies().json;
-    const tcDiv = document.createElement(`<img src="${data2.img}" alt="${data2.name}"><img>`);
-    trendingCompanies.appendChild(tcDiv);
+    const response2 = await fetchTopCompanies();
+    const data2 = response2[i];
+    trendingCompanies.innerHTML = `<img src="${data2.img}" alt="${data2.name}"><img>`;
 }
 
-console.log(tpResponse.data)
 // button
 
 // const buttons = document.getElementsByClassName("button2");
