@@ -109,7 +109,7 @@ app.get('/companies/get-trending-companies', jsonParser, async (req, r) => {
     r.status(200).send(test)
 })
 
-app.get('/companies/get-companies', jsonParser, async (req, r) => {
+//app.get('/companies/get-companies', jsonParser, async (req, r) => {
     
 //     const test = new Array(5).fill().map(x => {
 //         return {
@@ -133,8 +133,9 @@ app.get('/companies/get-jobs', jsonParser, async (req, r) => {
     })
 
     r.status(200).send(test)
-})
+});
 
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);
 });
+
