@@ -14,17 +14,18 @@ const tcResponse = await fetch(`http://localhost:3000/companies/get-top-picks`, 
 for(let i = 0; i<5; ++i){
 
     //fetch top-picks
-    const image1 = tpResponse[i];
-    const data1 = await tpResponse.json();
-    const tpDiv = document.createElement(`<img><a href=${image1}><img>`);
+
+    const response1 = await tpResponse.json();
+    const data1 = tpResponse[i];
+    const tpDiv = document.createElement(`<img src="${data1.img}" alt="${data1.name}"><img>`);
     topPick.appendChild(tpDiv);
 
     
     //fetch trending-companies
-    
-    const image2 = tcResponse[i];
-    const data2 = await tcResponse.json();
-    const tcDiv = document.createElement(`<img><a href=${image2}><img>`);
+    const response2 = await tcResponse.json();
+    const data2 = tcResponse[i];
+ 
+    const tcDiv = document.createElement(`<img src="${data2.img}" alt="${data2.name}"><img>`);
     trendingCompanies.appendChild(tcDiv);
 }
 

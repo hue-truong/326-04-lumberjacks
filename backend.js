@@ -17,7 +17,7 @@ import { faker } from '@faker-js/faker';
 const jsonParser = express.json();
 const app = express();
 const port = 3000;
-app.use(logger('dev'));
+app.use(logger('dev'));``
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
