@@ -27,14 +27,28 @@ for(let i = 0; i<5; ++i){
 
     const response1 = await fetchTopPics();
     const data1 = response1[i];
-    
-    topPick.innerHTML = `<img src="${data1.img}" alt="${data1.name}"><img>`;
-
+  
+    const topPickDiv = document.createElement("img");
+    const tempDiv1 = document.createElement("div");
+    tempDiv1.setAttribute("class", "grid-item");
+    topPickDiv.setAttribute("src", data1.img);
+    topPickDiv.setAttribute("alt", data1.name);
+    topPickDiv.setAttribute("class", "img");
+    tempDiv1.appendChild(topPickDiv);
+    topPick.appendChild(tempDiv1);
     
     //fetch trending-companies
     const response2 = await fetchTopCompanies();
     const data2 = response2[i];
-    trendingCompanies.innerHTML = `<img src="${data2.img}" alt="${data2.name}"><img>`;
+
+    const trendingDiv = document.createElement("img");
+    const tempDiv2 = document.createElement("div");
+    tempDiv2.setAttribute("class", "grid-item");
+    trendingDiv.setAttribute("src", data2.img);
+    trendingDiv.setAttribute("alt", data2.name);
+    trendingDiv.setAttribute("class", "img");
+    tempDiv2.appendChild(trendingDiv);
+    trendingCompanies.appendChild(tempDiv2);
 }
 
 // button
