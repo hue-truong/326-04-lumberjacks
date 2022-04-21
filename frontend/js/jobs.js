@@ -3,39 +3,70 @@ const architectureGrid = document.getElementById("architecture");
 const data_analysisGrid = document.getElementById("data_analysis");
 const entertainmentGrid = document.getElementById("entertainment");
 
-const jobsResponse = await fetch(`/jobs/get-jobs`, {
-    method: 'GET',
-  });
-const response = await tpResponse.json();
+const technologyArr = await fetchTech();
+const architectureArr = await fetchArch();
+const data_analysisArr = await fetchData_Analysis();
+const entertainmentArr = await fetchEntertainment();
 
-const technologyArr = response[0];
-const architectureArr = response[1];
-const data_analysisArr = response[2];
-const entertainmentArr = response[3];
+
+async function fetchTech(){
+    const techResponse = await fetch(`http://localhost:3000/companies/get-top-picks`
+    , {
+      method: 'GET',
+    });
+    const data = await techResponse.json();
+    return data;
+  }
+
+  async function fetchArch(){
+    const archResponse = await fetch(`http://localhost:3000/companies/get-top-picks`
+    , {
+      method: 'GET',
+    });
+    const data = await archResponse.json();
+    return data;
+  }
+
+  async function fetchData_Analysis(){
+    const dataResponse = await fetch(`http://localhost:3000/companies/get-top-picks`
+    , {
+      method: 'GET',
+    });
+    const data = await dataResponse.json();
+    return data;
+  }
+
+  async function fetchEntertainment(){
+    const entertainmentResponse = await fetch(`http://localhost:3000/companies/get-top-picks`
+    , {
+      method: 'GET',
+    });
+    const data = await entertainmentResponse.json();
+    return data;
+  }
 
 for(let i = 0; i<5; ++i){
     
     //technology
     
     const technologyData = technologyArr[i];
-    const technologyDiv = document.createElement(`<img src="${technologyData.img}" alt="${technologyData.name}"><img>`);
-    technologyGrid.appendChild(technologyDiv);
+    technologyGrid.innerHTML = `<img src="${technologyData.img}" alt="${technologyData.name}"><img>`;
 
       
     //architecture
     
     const architectureData = architectureArr[i];
-    const architectureDiv = document.createElement(`<img src="${architectureData.img}" alt="${technologyData.name}"><img>`);
-    architectureGrid.appendChild(architectureDiv);
+    architectureGrid.innerHTML = `<img src="${architectureData.img}" alt="${architectureData.name}"><img>`;
 
     //data_analysis
     
     const data_analysisData = data_analysisArr[i];
-    const data_analysisDiv = document.createElement(`<img src="${data_analysisData.img}" alt="${data_analysisData.name}"><img>`);
-    data_analysisGrid.appendChild(tcDiv);
+    data_analysisGrid.innerHTML = `<img src="${data_analysisData.img}" alt="${data_analysisData.name}"><img>`;
 
     //entertainment
     const entertainmentData = entertainmentArr[i];
-    const entertainmentDiv = document.createElement(`<img src="${entertainmentData.img}" alt="${entertainmentData.name}"><img>`);
-    entertainmentGrid.appendChild(entertainmentDiv);
+    entertainmentGrid.innerHTML = `<img src="${entertainmentData.img}" alt="${entertainmentData.name}"><img>`;
 }
+
+
+
