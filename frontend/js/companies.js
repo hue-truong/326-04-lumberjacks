@@ -3,15 +3,47 @@ const architectureGrid = document.getElementById("architecture");
 const data_analysisGrid = document.getElementById("data_analysis");
 const entertainmentGrid = document.getElementById("entertainment");
 
-const jobsResponse = await fetch(`/jobs/get-jobs`, {
-    method: 'GET',
-  });
-const response = await tpResponse.json();
+const company1 = await fetchCompany1();
+const company2 = await fetchCompany2();
+const company3 = await fetchCompany3();
+const company4 = await fetchCompany4();
 
-const technologyArr = response[0];
-const architectureArr = response[1];
-const data_analysisArr = response[2];
-const entertainmentArr = response[3];
+
+async function fetchCompany1(){
+    const company1 = await fetch(`http://localhost:3000/companies/get-jobs`
+    , {
+      method: 'GET',
+    });
+    const data = await company1.json();
+    return data;
+  }
+
+async function fetchCompany2(){
+    const company2 = await fetch(`http://localhost:3000/companies/get-jobs`
+    , {
+      method: 'GET',
+    });
+    const data = await company2.json();
+    return data;
+  }
+  
+async function fetchCompany3(){
+    const company3 = await fetch(`http://localhost:3000/companies/get-jobs`
+    , {
+      method: 'GET',
+    });
+    const data = await company3.json();
+    return data;
+  }
+
+async function fetchCompany4(){
+    const company4 = await fetch(`http://localhost:3000/companies/get-top-picks`
+    , {
+      method: 'GET',
+    });
+    const data = await company4.json();
+    return data;
+  }
 
 for(let i = 0; i<5; ++i){
     
