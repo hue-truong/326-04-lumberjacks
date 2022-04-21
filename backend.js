@@ -79,6 +79,68 @@ app.get('/companies/get-top-picks', jsonParser, async (req, r) => {
     r.status(200).send(test)
 })
 
+app.get('/companies/get-top-picks', jsonParser, async (req, r) => {
+    // const COMMAND = 'SELECT id FROM companies ORDER BY RANDOM() LIMIT 5'
+    // client.connect();
+    // client.query(COMMAND, (err, res) => {
+    //     if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
+    //     else{ r.status(200).send(res); }
+    // });
+    // client.end();
+    const test = new Array(5).fill().map(x => {
+        return {
+            name: faker.company.companyName(),
+            img: faker.image.cats(512, 512, true)
+        }
+    })
+
+    r.status(200).send(test)
+})
+
+app.get('/companies/get-trending-companies', jsonParser, async (req, r) => {
+    const test = new Array(5).fill().map(x => {
+        return {
+            name: faker.company.companyName(),
+            img: faker.image.cats(512, 512, true)
+        }
+    })
+
+    r.status(200).send(test)
+})
+
+app.get('/companies/get-trending-companies', jsonParser, async (req, r) => {
+    const test = new Array(5).fill().map(x => {
+        return {
+            name: faker.company.companyName(),
+            img: faker.image.cats(512, 512, true)
+        }
+    })
+
+    r.status(200).send(test)
+})
+
+app.get('/companies/get-trending-companies', jsonParser, async (req, r) => {
+    const test = new Array(5).fill().map(x => {
+        return {
+            name: faker.company.companyName(),
+            img: faker.image.cats(512, 512, true)
+        }
+    })
+
+    r.status(200).send(test)
+})
+
+app.get('/companies/get-companies', jsonParser, async (req, r) => {
+    const test = new Array(5).fill().map(x => {
+        return {
+            name: faker.company.companyName(),
+            img: faker.image.business(512, 512, true)
+        }
+    })
+
+    r.status(200).send(test)
+})
+
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);
 });
