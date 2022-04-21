@@ -1,4 +1,7 @@
-const topPick = document.getElementById("topPick");
+const technologyGrid = document.getElementById("technology");
+const architectureGrid = document.getElementById("architecture");
+const data_analysisGrid = document.getElementById("data_analysis");
+const entertainmentGrid = document.getElementById("entertainment");
 
 const jobsResponse = await fetch(`/jobs/get-jobs`, {
     method: 'GET',
@@ -16,23 +19,23 @@ for(let i = 0; i<5; ++i){
     
     const technologyData = technologyArr[i];
     const technologyDiv = document.createElement(`<img src="${technologyData.img}" alt="${technologyData.name}"><img>`);
-    topPick.appendChild(technologyDiv);
+    technologyGrid.appendChild(technologyDiv);
 
       
     //architecture
     
     const architectureData = architectureArr[i];
     const architectureDiv = document.createElement(`<img src="${architectureData.img}" alt="${technologyData.name}"><img>`);
-    topPick.appendChild(architectureDiv);
+    architectureGrid.appendChild(architectureDiv);
 
     //data_analysis
     
     const data_analysisData = data_analysisArr[i];
     const data_analysisDiv = document.createElement(`<img src="${data_analysisData.img}" alt="${data_analysisData.name}"><img>`);
-    topPick.appendChild(tcDiv);
+    data_analysisGrid.appendChild(tcDiv);
 
     //entertainment
     const entertainmentData = entertainmentArr[i];
     const entertainmentDiv = document.createElement(`<img src="${entertainmentData.img}" alt="${entertainmentData.name}"><img>`);
-    topPick.appendChild(entertainmentDiv);
+    entertainmentGrid.appendChild(entertainmentDiv);
 }
