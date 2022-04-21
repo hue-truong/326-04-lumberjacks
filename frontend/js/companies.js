@@ -1,13 +1,4 @@
-const technologyGrid = document.getElementById("technology");
-const architectureGrid = document.getElementById("architecture");
-const data_analysisGrid = document.getElementById("data_analysis");
-const entertainmentGrid = document.getElementById("entertainment");
-
-const company1 = await fetchCompany1();
-const company2 = await fetchCompany2();
-const company3 = await fetchCompany3();
-const company4 = await fetchCompany4();
-
+const gridGroup = document.getElementById("grid-group");
 
 async function fetchCompany1(){
     const company1 = await fetch(`http://localhost:3000/companies/get-jobs`
@@ -37,7 +28,7 @@ async function fetchCompany3(){
   }
 
 async function fetchCompany4(){
-    const company4 = await fetch(`http://localhost:3000/companies/get-top-picks`
+    const company4 = await fetch(`http://localhost:3000/companies/get-jobs`
     , {
       method: 'GET',
     });
@@ -45,29 +36,55 @@ async function fetchCompany4(){
     return data;
   }
 
-for(let i = 0; i<5; ++i){
+    //Company1
     
-    //technology
-    
-    const technologyData = technologyArr[i];
-    const technologyDiv = document.createElement(`<img src="${technologyData.img}" alt="${technologyData.name}"><img>`);
-    technologyGrid.appendChild(technologyDiv);
+    const company1 = await fetchCompany1();
+    buildJobs(company1);
 
       
-    //architecture
+    //Company2
     
-    const architectureData = architectureArr[i];
-    const architectureDiv = document.createElement(`<img src="${architectureData.img}" alt="${technologyData.name}"><img>`);
-    architectureGrid.appendChild(architectureDiv);
+    const company2 = await fetchCompany2();
+    buildJobs(company2);
 
-    //data_analysis
+    //Company3
     
-    const data_analysisData = data_analysisArr[i];
-    const data_analysisDiv = document.createElement(`<img src="${data_analysisData.img}" alt="${data_analysisData.name}"><img>`);
-    data_analysisGrid.appendChild(tcDiv);
+    const company3 = await fetchCompany3();
+    buildJobs(company3);
 
-    //entertainment
-    const entertainmentData = entertainmentArr[i];
-    const entertainmentDiv = document.createElement(`<img src="${entertainmentData.img}" alt="${entertainmentData.name}"><img>`);
-    entertainmentGrid.appendChild(entertainmentDiv);
+    //Company4
+    const company4 = await fetchCompany4();
+    buildJobs(company4);
+
+    
+
+function buildJobs(company){
+    const gridTitle = document.createElement("div");
+    const companyName = document.createTextNode(company[0].name);
+    gridTitle.appendChild(companyName);
+
+    for(let i = 0; i<5; ++i){
+        const data = company[i];
+        const styleDiv = document.createElement("div");
+        styleDiv.setAttribute("class", "grid-item");
+
+
+        const companyImage = document.createElement("img");
+        companyImage.setAttribute("src", data.img);
+        companyImage.setAttribute("alt", data.job_title);
+        companyImage.setAttribute("class", "img");
+    
+
+        const jobDiv = document.createElement("div");
+        jobDiv.setAttribute("class","jobtitle")
+
+
+        const jobTitleText = document.createTextNode(data.job_title);
+        jobDiv.appendChild(jobTitleText);
+    
+        styleDiv.appendChild(companyImage);
+        styleDiv.appendChild(jobDiv);
+        gridGroup.appendChild(styleDiv);
+    }
+    
 }
