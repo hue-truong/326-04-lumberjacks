@@ -10,7 +10,7 @@ const entertainmentArr = await fetchEntertainment();
 
 
 async function fetchTech(){
-    const techResponse = await fetch(`http://localhost:3000/companies/get-top-picks`
+    const techResponse = await fetch(`http://localhost:3000/companies/get-companies`
     , {
       method: 'GET',
     });
@@ -19,7 +19,7 @@ async function fetchTech(){
   }
 
   async function fetchArch(){
-    const archResponse = await fetch(`http://localhost:3000/companies/get-top-picks`
+    const archResponse = await fetch(`http://localhost:3000/companies/get-companies`
     , {
       method: 'GET',
     });
@@ -28,7 +28,7 @@ async function fetchTech(){
   }
 
   async function fetchData_Analysis(){
-    const dataResponse = await fetch(`http://localhost:3000/companies/get-top-picks`
+    const dataResponse = await fetch(`http://localhost:3000/companies/get-companies`
     , {
       method: 'GET',
     });
@@ -37,7 +37,7 @@ async function fetchTech(){
   }
 
   async function fetchEntertainment(){
-    const entertainmentResponse = await fetch(`http://localhost:3000/companies/get-top-picks`
+    const entertainmentResponse = await fetch(`http://localhost:3000/companies/get-companies`
     , {
       method: 'GET',
     });
