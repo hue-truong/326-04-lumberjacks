@@ -25,14 +25,14 @@ for(let i = 0; i<5; ++i){
     const tpDiv = document.createElement(`<img src="${data1.img}" alt="${data1.name}"><img>`);
     topPick.appendChild(tpDiv);
 
-      
+    
     //fetch trending-companies
     const response2 = await fetchTopCompanies().json;
     const tcDiv = document.createElement(`<img src="${data2.img}" alt="${data2.name}"><img>`);
     trendingCompanies.appendChild(tcDiv);
-
 }
 
+console.log(tpResponse.data)
 // button
 
 // const buttons = document.getElementsByClassName("button2");
