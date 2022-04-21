@@ -120,7 +120,7 @@ app.get('/companies/get-trending-companies', jsonParser, async (req, r) => {
 
 //     r.status(200).send(test)
 // })
-const jobs = [ 'UI Artist', 'Applications Development', 'Software Development' ]
+const job_titles = [ 'UI Artist', 'Applications Development', 'Software Development' ];
 app.get('/companies/get-jobs', jsonParser, async (req, r) => {
     const name = faker.business.name
     const img = faker.image.business(512, 512, true)
