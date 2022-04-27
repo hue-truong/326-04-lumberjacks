@@ -28,6 +28,17 @@ app.use(function (req, res, next) {
     next();
 });
 
+
+//Both the if-statement and app.get used to specify the path to index.html for the Heroku server
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('./frontend'));
+}
+
+app.get('*', (req, res) => {
+	response.sendFile(path.join(__dirname, './frontend', 'index.html'));
+});
+
+
 // Query jobs from specific company in Jobs table
 app.get('/companies/company/get-jobs', async (req, r) => {
     const COMMAND = `SELECT * FROM jobs WHERE company = ${req.query.company}`
