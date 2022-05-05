@@ -1,5 +1,6 @@
 import express from 'express';
 import logger from 'morgan';
+import path from 'path'
 import * as http from 'http';
 import * as url from 'url';
 import pkg from 'pg';
@@ -30,14 +31,7 @@ app.use(function (req, res, next) {
 
 
 //Both the if-statement and app.get used to specify the path to index.html for the Heroku server
-if (process.env.NODE_ENV === 'production') {
-	app.use(express.static('./frontend'));
-}
-
-app.get('*', (req, res) => {
-	response.sendFile(path.join(__dirname, './frontend', 'index.html'));
-});
-
+app.use(express.static('./frontend'));
 
 // Query jobs from specific company in Jobs table
 app.get('/companies/company/get-jobs', async (req, r) => {

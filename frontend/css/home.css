@@ -77,7 +77,7 @@
 }
 
 .button2{
-    background-image: url(/frontend/media/company_logos/Google_Logo.png);
+    background-image: url(/media/company_logos/Google_Logo.png);
     background-size: 100px 100px;
     cursor: pointer;
     border: none;
