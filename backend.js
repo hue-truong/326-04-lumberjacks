@@ -35,7 +35,7 @@ app.use(express.static('./frontend'));
 
 // Query jobs from specific company in Jobs table
 app.get('/companies/company/get-jobs', async (req, r) => {
-    const COMMAND = `SELECT * FROM jobs, companies WHERE jobs.cid = companies.loginid AND companies.cname = ${req.query.company}`
+    const COMMAND = `SELECT title, descrip FROM jobs, companies WHERE jobs.cid = companies.loginid AND companies.cname = ${req.query.company}`
     client.connect();
     client.query(COMMAND, (err, res) => {
         if (err) { r.status(501).send("ERROR: Could not get jobs!"); }
@@ -194,7 +194,18 @@ app.get('/signin', jsonParser, async (req, r) => {
     const COMMAND = `SELECT fname, lname FROM users 
     WHERE email = ${req.query.email} AND pass = ${req.query.pass};`;
     client.query(COMMAND, (err, res) => {
-        if(err){ r.status(501).send("ERROR: Could not retrieve user information! Email or password incorrect."); }
+        if(err){ r.status(501).send("ERROR: Could not retrieve user information! Email or password is incorrect."); }
+        else{ r.status(200).send(res); }
+    });
+    client.end();
+});
+
+app.get('/company/get-applicants', jsonParser, async (req, r) => {
+    const COMMAND = `SELECT fname, lname, email, job FROM applications, jobs, companies 
+    WHERE applications.job = jobs.id AND jobs.cid = companies.loginid 
+    AND companies.loginid = ${req.query.loginid};`;
+    client.query(COMMAND, (err, res) => {
+        if(err){ r.status(501).send("ERROR: Could not retrieve application information!"); }
         else{ r.status(200).send(res); }
     });
     client.end();
