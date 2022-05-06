@@ -182,7 +182,6 @@ app.post('/signup/company', jsonParser, async (req, r) => {
     VALUES (${req.query.cname}, ${req.query.loginid}, ${req.query.pass})
     ON DUPLICATE KEY UPDATE
     cname = ${req.query.cname},
-    loginid = ${req.query.loginid},
     pass = ${req.query.pass};`;
     client.query(COMMAND, (err, res) => {
              if(err){ r.status(501).send("ERROR: Could not submit company information!"); }
