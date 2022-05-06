@@ -46,7 +46,7 @@ app.get('/companies/company/get-jobs', async (req, r) => {
 
 // Query information on company from Companies table
 app.get('/companies/get-company', async (req, r) => {
-    // const COMMAND = `SELECT * FROM companies WHERE id = ${req.query.id}`
+    // const COMMAND = `SELECT * FROM companies WHERE loginid = ${req.query.loginid}`
     // client.connect();
     // client.query(COMMAND, (err, res) => {
     //     if (err) { r.status(501).send("ERROR: Could not get company!"); }
@@ -57,7 +57,7 @@ app.get('/companies/get-company', async (req, r) => {
 
 // Query user information from Users table
 app.get('/users/get-user', async (req, r) => {
-    const COMMAND = `SELECT * FROM users WHERE id = ${req.query.id}`
+    const COMMAND = `SELECT * FROM users WHERE email = ${req.query.email}`
     client.connect();
     client.query(COMMAND, (err, res) => {
         if (err) { r.status(501).send("ERROR: Could not get user!"); }
@@ -68,7 +68,7 @@ app.get('/users/get-user', async (req, r) => {
 
 // Query random top picks for home page
 app.get('/companies/get-top-picks', jsonParser, async (req, r) => {
-    // const COMMAND = 'SELECT id FROM companies ORDER BY RANDOM() LIMIT 5'
+    // const COMMAND = 'SELECT loginid FROM companies ORDER BY RANDOM() LIMIT 5'
     // client.connect();
     // client.query(COMMAND, (err, res) => {
     //     if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
@@ -86,7 +86,7 @@ app.get('/companies/get-top-picks', jsonParser, async (req, r) => {
 })
 
 app.get('/companies/get-top-picks', jsonParser, async (req, r) => {
-    // const COMMAND = 'SELECT id FROM companies ORDER BY RANDOM() LIMIT 5'
+    // const COMMAND = 'SELECT loginid FROM companies ORDER BY RANDOM() LIMIT 5'
     // client.connect();
     // client.query(COMMAND, (err, res) => {
     //     if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
@@ -188,6 +188,16 @@ app.post('/signup/company', jsonParser, async (req, r) => {
              else{ r.status(200).send(res); }
          });
          client.end();
+});
+
+app.get('/signin', jsonParser, async (req, r) => {
+    const COMMAND = `SELECT fname, lname FROM users 
+    WHERE email = ${req.query.email} AND pass = ${req.query.pass};`;
+    client.query(COMMAND, (err, res) => {
+        if(err){ r.status(501).send("ERROR: Could not retrieve user information! Email or password incorrect."); }
+        else{ r.status(200).send(res); }
+    });
+    client.end();
 });
 
 app.listen(port, () => {
