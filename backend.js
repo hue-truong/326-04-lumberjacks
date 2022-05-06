@@ -35,7 +35,7 @@ app.use(express.static('./frontend'));
 
 // Query jobs from specific company in Jobs table
 app.get('/companies/company/get-jobs', async (req, r) => {
-    const COMMAND = `SELECT * FROM jobs WHERE company = ${req.query.company}`
+    const COMMAND = `SELECT * FROM jobs, companies WHERE jobs.cid = companies.loginid AND companies.cname = ${req.query.company}`
     client.connect();
     client.query(COMMAND, (err, res) => {
         if (err) { r.status(501).send("ERROR: Could not get jobs!"); }
