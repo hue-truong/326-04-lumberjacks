@@ -17,9 +17,11 @@ signupButton.addEventListener("click", ()=>{
             if(signupPassword.value.length >= 8){   //Password should be longer than 8
                 if(JSON.stringify(accountType.value) === JSON.stringify("user")){
                     //user request
+                    await userRequest(signupName.value, signupEmail.value, signupPassword.value);
                 }
                 else{
                     //company request
+                    await companyRequest(signupName.value, signupEmail.value, signupPassword.value);
                 }
             }
             else{
@@ -29,7 +31,6 @@ signupButton.addEventListener("click", ()=>{
         else{
             console.error("Not a valid e-mail address. Should look like example@lancer.com");
         }
-
     }
     else{
         console.error("Incomplete or missing credentials.");
@@ -40,12 +41,11 @@ signinButton.addEventListener("click", ()=>{
     if(signinEmail.value.length !== 0 &&
         signinPassword.value.length !== 0){
         if(regexTest(signinEmail.value)){ //if email regex works
-
+            await signInRequest(signinEmail, signinPassword);
         }
         else{
             console.error("Not a valid e-mail address. Should look like example@lancer.com");
         }
-
     }
     else{
         console.error("Incomplete or missing credentials.");
@@ -56,3 +56,36 @@ function regexTest(emailStr){
     const regex = /.+@.+\..+/;    //matches: string @ string . string
     return regex.test(emailStr);
 }
+
+async function userRequest(userName, emailAddress, userPassword){
+await fetch(`http://localhost:3000/signup/user`,{
+    method: 'POST',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type' : 'application/json'
+    },
+    body: JSON.stringify({userName, emailAddress, userPassword})
+});
+}
+
+async function companyRequest(companyName, emailAddress, companyPassword){
+    await fetch(`http://localhost:3000/signup/company`,{
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({companyName, emailAddress, companyPassword})
+    });
+    }
+
+    async function signInRequest(emailAddress, generalPassword){
+    await fetch(`http://localhost:3000/signin`,{
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({emailAddress, generalPassword})
+    });
+    }
