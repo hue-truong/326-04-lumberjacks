@@ -140,6 +140,61 @@ app.get('/companies/get-jobs', jsonParser, async (req, r) => {
     r.status(200).send(test)
 });
 
+//DAMON CODE START
+
+//Takes given user data and submits to a new "applications" table
+//Sends user name, email, and job applied to
+app.post('/submitapp', jsonParser, async (req, r) => {
+    const COMMAND = 
+    `INSERT INTO applications (fname, lname, email, job)
+    VALUES (${req.query.fname}, ${req.query.lname}, ${req.query.email}, ${req.query.job})
+    ON DUPLICATE KEY UPDATE
+    fname = ${req.query.fname},
+    lname = ${req.query.lname},
+    job = ${req.query.job};`;
+    client.query(COMMAND, (err, res) => {
+             if(err){ r.status(501).send("ERROR: Could not submit application information!"); }
+             else{ r.status(200).send(res); }
+         });
+         client.end();
+});
+
+//Takes data from HTML form and submits info to "users" table
+//Sends user name, email, password
+app.post('/signup/user', jsonParser, async (req, r) => {
+    const COMMAND = 
+    `INSERT INTO users (fname, lname, email, pass)
+    VALUES (${req.query.fname}, ${req.query.lname}, ${req.query.email}, ${req.query.pass})
+    ON DUPLICATE KEY UPDATE
+    fname = ${req.query.fname},
+    lname = ${req.query.lname},
+    pass = ${req.query.pass};`;
+    client.query(COMMAND, (err, res) => {
+             if(err){ r.status(501).send("ERROR: Could not submit user information!"); }
+             else{ r.status(200).send(res); }
+         });
+         client.end();
+});
+
+//Takes data from HTML form and submits info to "companies" table
+//Sends company name, login id (email), password
+app.post('/signup/company', jsonParser, async (req, r) => {
+    const COMMAND = 
+    `INSERT INTO companies (cname, loginid, pass)
+    VALUES (${req.query.cname}, ${req.query.loginid}, ${req.query.pass})
+    ON DUPLICATE KEY UPDATE
+    cname = ${req.query.cname},
+    loginid = ${req.query.loginid},
+    pass = ${req.query.pass};`;
+    client.query(COMMAND, (err, res) => {
+             if(err){ r.status(501).send("ERROR: Could not submit company information!"); }
+             else{ r.status(200).send(res); }
+         });
+         client.end();
+});
+
+//DAMON CODE END
+
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);
 });
