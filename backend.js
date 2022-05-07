@@ -7,13 +7,12 @@ import pkg from 'pg';
 const { Pool, Client } = pkg;
 import { faker } from '@faker-js/faker';
 
-// const client = new Client({ 
-//     "user": "postgres",
-//     "host": "localhost",
-//     "database": "postgres",
-//     "password": "123",
-//     "port": 5432
-// });
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false
+    }
+});
 
 const jsonParser = express.json();
 const app = express();
@@ -35,6 +34,7 @@ app.use(express.static('./frontend'));
 
 // Query jobs from specific company in Jobs table
 app.get('/companies/company/get-jobs', async (req, r) => {
+    const client = await pool.connect();
     const COMMAND = `SELECT title, descrip FROM jobs, companies WHERE jobs.cid = companies.loginid AND companies.cname = ${req.query.company}`
     client.connect();
     client.query(COMMAND, (err, res) => {
@@ -57,6 +57,7 @@ app.get('/companies/get-company', async (req, r) => {
 
 // Query user information from Users table
 app.get('/users/get-user', async (req, r) => {
+    const client = await pool.connect();
     const COMMAND = `SELECT * FROM users WHERE email = ${req.query.email}`
     client.connect();
     client.query(COMMAND, (err, res) => {
