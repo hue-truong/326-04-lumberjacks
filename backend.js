@@ -6,14 +6,11 @@ import * as url from 'url';
 import pkg from 'pg';
 const { Pool, Client } = pkg;
 import { faker } from '@faker-js/faker';
+import 'dotenv/config'
 
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false
-    }
-});
+const client = new Client({ connectionString: process.env.DATABASE_URI, ssl: true});
 
+client.connect();
 const jsonParser = express.json();
 const app = express();
 const port = process.env.PORT || 3000;
@@ -34,17 +31,13 @@ app.use(express.static('./frontend'));
 
 // Query jobs from specific company in Jobs table
 app.get('/companies/company/get-jobs', async (req, r) => {
-    const COMMAND = `SELECT title, descrip FROM "lancer-data".jobs, "lancer-data".companies WHERE jobs.cid = companies.loginid AND companies.cname = '${req.query.company}'`
-    try {
-        const client = await pool.connect();
-        const result = await client.query(COMMAND);
-        const results = { 'results': (result) ? result.rows : null };
-        res.render('pages/db', results);
-        client.release();
-    } catch (err) {
-        console.error(err);
-        res.send("Error " + err);
-    }
+    // const COMMAND = `SELECT title, descrip, cname, img FROM "lancer-data".jobs, "lancer-data".companies WHERE jobs.cid = companies.loginid AND companies.cname = '${req.query.company}';`
+    const COMMAND = `SELECT * FROM "lancer-data".companies`
+    client.query(COMMAND, (err, res) => {
+        console.log(res)
+        if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
+        else{ r.status(200).send(res); }
+    });
 })
 
 // Query information on company from Companies table
@@ -61,53 +54,23 @@ app.get('/companies/get-company', async (req, r) => {
 // Query user information from Users table
 app.get('/users/get-user', async (req, r) => {
     const COMMAND = `SELECT * FROM users WHERE email = ${req.query.email}`
-    try {
-        const client = await pool.connect();
-        const result = await client.query(COMMAND);
-        const results = { 'results': (result) ? result.rows : null };
-        res.render('pages/db', results);
-        client.release();
-    } catch (err) {
-        console.error(err);
-        res.send("Error " + err);
-    }
+
+    client.query(COMMAND, (err, res) => {
+        if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
+        else{ r.status(200).send(res); }
+    });
+    client.end();
 })
 
 // Query random top picks for home page
 app.get('/companies/get-top-picks', jsonParser, async (req, r) => {
-    // const COMMAND = 'SELECT loginid FROM "lancer-data".companies ORDER BY RANDOM() LIMIT 5'
-    // client.connect();
-    // client.query(COMMAND, (err, res) => {
-    //     if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
-    //     else{ r.status(200).send(res); }
-    // });
-    // client.end();
-    const test = new Array(5).fill().map(x => {
-        return {
-            name: faker.company.companyName(),
-            img: faker.image.cats(512, 512, true)
-        }
-    })
+    const COMMAND = 'SELECT * FROM "lancer-data".companies ORDER BY RANDOM() LIMIT 5'
 
-    r.status(200).send(test)
-})
-
-app.get('/companies/get-top-picks', jsonParser, async (req, r) => {
-    // const COMMAND = 'SELECT loginid FROM "lancer-data".companies ORDER BY RANDOM() LIMIT 5'
-    // client.connect();
-    // client.query(COMMAND, (err, res) => {
-    //     if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
-    //     else{ r.status(200).send(res); }
-    // });
-    // client.end();
-    const test = new Array(5).fill().map(x => {
-        return {
-            name: faker.company.companyName(),
-            img: faker.image.cats(512, 512, true)
-        }
-    })
-
-    r.status(200).send(test)
+    client.query(COMMAND, (err, res) => {
+        if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
+        else{ r.status(200).send(res); }
+    });
+    client.end();
 })
 
 app.get('/companies/get-trending-companies', jsonParser, async (req, r) => {
@@ -132,6 +95,20 @@ app.get('/companies/get-companies', jsonParser, async (req, r) => {
 
     r.status(200).send(test)
 })
+
+app.get('/companies/get-companies-jobs', jsonParser, async (req, r) => {
+
+    const test = new Array(5).fill().map(x => {
+        return {
+            name: faker.company.companyName(),
+            img: faker.image.cats(512, 512, true),
+            job_title: faker.hacker.noun()
+        }
+    })
+
+    r.status(200).send(test)
+})
+
 const job_titles = ['UI Artist', 'Applications Development', 'Software Development'];
 app.get('/companies/get-jobs', jsonParser, async (req, r) => {
     const name = faker.company.companyName()
@@ -157,16 +134,12 @@ app.post('/submitapp', jsonParser, async (req, r) => {
     fname = '${req.query.fname}',
     lname = '${req.query.lname}',
     job = ${req.query.job};`;
-    try {
-        const client = await pool.connect();
-        const result = await client.query(COMMAND);
-        const results = { 'results': (result) ? result.rows : null };
-        res.render('pages/db', results);
-        client.release();
-    } catch (err) {
-        console.error(err);
-        res.send("Error " + err);
-    }
+
+    client.query(COMMAND, (err, res) => {
+        if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
+        else{ r.status(200).send(res); }
+    });
+    client.end();
 });
 
 //Takes data from HTML form and submits info to "users" table
@@ -179,16 +152,12 @@ app.post('/signup/user', jsonParser, async (req, r) => {
     fname = '${req.query.fname}',
     lname = '${req.query.lname}',
     pass = '${req.query.pass}';`;
-    try {
-        const client = await pool.connect();
-        const result = await client.query(COMMAND);
-        const results = { 'results': (result) ? result.rows : null };
-        res.render('pages/db', results);
-        client.release();
-    } catch (err) {
-        console.error(err);
-        res.send("Error " + err);
-    }
+
+    client.query(COMMAND, (err, res) => {
+        if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
+        else{ r.status(200).send(res); }
+    });
+    client.end();
 });
 
 //Takes data from HTML form and submits info to "companies" table
@@ -200,47 +169,35 @@ app.post('/signup/company', jsonParser, async (req, r) => {
     ON DUPLICATE KEY UPDATE
     cname = '${req.query.cname}',
     pass = '${req.query.pass}';`;
-    try {
-        const client = await pool.connect();
-        const result = await client.query(COMMAND);
-        const results = { 'results': (result) ? result.rows : null };
-        res.render('pages/db', results);
-        client.release();
-    } catch (err) {
-        console.error(err);
-        res.send("Error " + err);
-    }
+
+    client.query(COMMAND, (err, res) => {
+        if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
+        else{ r.status(200).send(res); }
+    });
+    client.end();
 });
 
 app.get('/signin', jsonParser, async (req, r) => {
     const COMMAND = `SELECT fname, lname FROM "lancer-data".users 
     WHERE email = '${req.query.email}' AND pass = '${req.query.pass}';`;
-    try {
-        const client = await pool.connect();
-        const result = await client.query(COMMAND);
-        const results = { 'results': (result) ? result.rows : null };
-        res.render('pages/db', results);
-        client.release();
-    } catch (err) {
-        console.error(err);
-        res.send("Error " + err);
-    }
+
+    client.query(COMMAND, (err, res) => {
+        if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
+        else{ r.status(200).send(res); }
+    });
+    client.end();
 });
 
 app.get('/company/get-applicants', jsonParser, async (req, r) => {
     const COMMAND = `SELECT fname, lname, email, job FROM "lancer-data".applications, "lancer-data".jobs, "lancer-data".companies 
     WHERE applications.job = jobs.id AND jobs.cid = companies.loginid 
     AND companies.loginid = '${req.query.loginid}';`;
-    try {
-        const client = await pool.connect();
-        const result = await client.query(COMMAND);
-        const results = { 'results': (result) ? result.rows : null };
-        res.render('pages/db', results);
-        client.release();
-    } catch (err) {
-        console.error(err);
-        res.send("Error " + err);
-    }
+
+    client.query(COMMAND, (err, res) => {
+        if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
+        else{ r.status(200).send(res); }
+    });
+    client.end();
 });
 
 app.listen(port, () => {

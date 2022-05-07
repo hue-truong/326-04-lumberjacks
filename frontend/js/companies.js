@@ -76,6 +76,16 @@ function buildJobs(company) {
     const styleDiv = document.createElement("div");
     styleDiv.setAttribute("class", "grid-item");
 
+    const href = document.createElement('a')
+    href.setAttribute('class', 'jobclick')
+    href.setAttribute('href', '')
+
+    const text = document.createElement('span')
+    text.setAttribute('class', 'jobtitle')
+    text.innerText='HELLO'
+
+    href.appendChild(text)
+
 
     const companyImage = document.createElement("img");
     companyImage.setAttribute("src", data.img);
@@ -86,11 +96,10 @@ function buildJobs(company) {
     const jobDiv = document.createElement("div");
     jobDiv.setAttribute("class", "jobtitle")
 
-
-    const jobTitleText = document.createTextNode(data.job_title);
-    jobDiv.appendChild(jobTitleText);
+    jobDiv.appendChild(href);
 
     styleDiv.appendChild(companyImage);
+    
     styleDiv.appendChild(jobDiv);
     console.log(styleDiv);
     gridContainer.appendChild(styleDiv);

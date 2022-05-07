@@ -54,13 +54,6 @@ body{
     text-decoration: none;
 }
 
-.jobtitle {
-    display: block;
-    color: rgb(194, 194, 194);
-    text-align: center;
-    padding: 25px 16px; /* this is where you move up and down, left and right*/
-    text-decoration: none;
-}
 
 .nav-li-a:hover:not(.active) {
     background-color: rgb(29, 29, 29);

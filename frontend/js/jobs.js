@@ -57,6 +57,17 @@ for(let i = 0; i<5; ++i){
     techDiv.setAttribute("alt", technologyData.name);
     techDiv.setAttribute("class", "img");
     tempDiv1.appendChild(techDiv);
+
+    const href = document.createElement('a')
+    href.setAttribute('class', 'jobclick')
+    href.setAttribute('href', '')
+
+    const text = document.createElement('span')
+    text.setAttribute('class', 'jobtitle')
+    text.innerText= technologyData.name
+    href.appendChild(text)
+    tempDiv1.appendChild(href)
+
     technologyGrid.appendChild(tempDiv1);
 
       
@@ -70,6 +81,17 @@ for(let i = 0; i<5; ++i){
     archDiv.setAttribute("alt", architectureData.name);
     archDiv.setAttribute("class", "img");
     tempDiv2.appendChild(archDiv);
+    
+    const href2 = document.createElement('a')
+    href2.setAttribute('class', 'jobclick')
+    href2.setAttribute('href', '')
+
+    const text2 = document.createElement('span')
+    text2.setAttribute('class', 'jobtitle')
+    text2.innerText= architectureData.name
+    href2.appendChild(text2)
+    tempDiv2.appendChild(href2)
+
     architectureGrid.appendChild(tempDiv2);
 
     //data_analysis
@@ -82,6 +104,17 @@ for(let i = 0; i<5; ++i){
     data_analysisDiv.setAttribute("alt", data_analysisData.name);
     data_analysisDiv.setAttribute("class", "img");
     tempDiv3.appendChild(data_analysisDiv);
+
+    const href3 = document.createElement('a')
+    href3.setAttribute('class', 'jobclick')
+    href3.setAttribute('href', '')
+
+    const text3 = document.createElement('span')
+    text3.setAttribute('class', 'jobtitle')
+    text3.innerText= data_analysisData.name
+    href3.appendChild(text3)
+    tempDiv3.appendChild(href3)
+
     data_analysisGrid.appendChild(tempDiv3);
 
     //entertainment
@@ -93,6 +126,17 @@ for(let i = 0; i<5; ++i){
     entertainmentDiv.setAttribute("alt", entertainmentData.name);
     entertainmentDiv.setAttribute("class", "img");
     tempDiv4.appendChild(entertainmentDiv);
+
+    const href4 = document.createElement('a')
+    href4.setAttribute('class', 'jobclick')
+    href4.setAttribute('href', '')
+
+    const text4 = document.createElement('span')
+    text4.setAttribute('class', 'jobtitle')
+    text4.innerText= entertainmentData.name
+    href4.appendChild(text4)
+    tempDiv4.appendChild(href4)
+
     entertainmentGrid.appendChild(tempDiv4);
 }
 
