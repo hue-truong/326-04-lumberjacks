@@ -34,8 +34,7 @@ app.use(express.static('./frontend'));
 
 // Query jobs from specific company in Jobs table
 app.get('/companies/company/get-jobs', async (req, r) => {
-    const client = await pool.connect();
-    const COMMAND = `SELECT title, descrip FROM jobs, companies WHERE jobs.cid = companies.loginid AND companies.cname = ${req.query.company}`
+    const COMMAND = `SELECT title, descrip FROM "lancer-data".jobs, "lancer-data".companies WHERE jobs.cid = companies.loginid AND companies.cname = '${req.query.company}'`
     client.connect();
     client.query(COMMAND, (err, res) => {
         if (err) { r.status(501).send("ERROR: Could not get jobs!"); }
@@ -46,7 +45,7 @@ app.get('/companies/company/get-jobs', async (req, r) => {
 
 // Query information on company from Companies table
 app.get('/companies/get-company', async (req, r) => {
-    // const COMMAND = `SELECT * FROM companies WHERE loginid = ${req.query.loginid}`
+    // const COMMAND = `SELECT * FROM "lancer-data".companies WHERE loginid = '${req.query.loginid}'`
     // client.connect();
     // client.query(COMMAND, (err, res) => {
     //     if (err) { r.status(501).send("ERROR: Could not get company!"); }
@@ -69,7 +68,7 @@ app.get('/users/get-user', async (req, r) => {
 
 // Query random top picks for home page
 app.get('/companies/get-top-picks', jsonParser, async (req, r) => {
-    // const COMMAND = 'SELECT loginid FROM companies ORDER BY RANDOM() LIMIT 5'
+    // const COMMAND = 'SELECT loginid FROM "lancer-data".companies ORDER BY RANDOM() LIMIT 5'
     // client.connect();
     // client.query(COMMAND, (err, res) => {
     //     if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
@@ -87,7 +86,7 @@ app.get('/companies/get-top-picks', jsonParser, async (req, r) => {
 })
 
 app.get('/companies/get-top-picks', jsonParser, async (req, r) => {
-    // const COMMAND = 'SELECT loginid FROM companies ORDER BY RANDOM() LIMIT 5'
+    // const COMMAND = 'SELECT loginid FROM "lancer-data".companies ORDER BY RANDOM() LIMIT 5'
     // client.connect();
     // client.query(COMMAND, (err, res) => {
     //     if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
@@ -145,11 +144,11 @@ app.get('/companies/get-jobs', jsonParser, async (req, r) => {
 //Sends user name, email, and job applied to
 app.post('/submitapp', jsonParser, async (req, r) => {
     const COMMAND = 
-    `INSERT INTO applications (fname, lname, email, job)
-    VALUES (${req.query.fname}, ${req.query.lname}, ${req.query.email}, ${req.query.job})
+    `INSERT INTO "lancer-data".applications (fname, lname, email, job)
+    VALUES ('${req.query.fname}', '${req.query.lname}', '${req.query.email}', ${req.query.job})
     ON DUPLICATE KEY UPDATE
-    fname = ${req.query.fname},
-    lname = ${req.query.lname},
+    fname = '${req.query.fname}',
+    lname = '${req.query.lname}',
     job = ${req.query.job};`;
     client.query(COMMAND, (err, res) => {
              if(err){ r.status(501).send("ERROR: Could not submit application information!"); }
@@ -162,12 +161,12 @@ app.post('/submitapp', jsonParser, async (req, r) => {
 //Sends user name, email, password
 app.post('/signup/user', jsonParser, async (req, r) => {
     const COMMAND = 
-    `INSERT INTO users (fname, lname, email, pass)
-    VALUES (${req.query.fname}, ${req.query.lname}, ${req.query.email}, ${req.query.pass})
+    `INSERT INTO "lancer-data".users (fname, lname, email, pass)
+    VALUES ('${req.query.fname}', '${req.query.lname}', '${req.query.email}', '${req.query.pass}')
     ON DUPLICATE KEY UPDATE
-    fname = ${req.query.fname},
-    lname = ${req.query.lname},
-    pass = ${req.query.pass};`;
+    fname = '${req.query.fname}',
+    lname = '${req.query.lname}',
+    pass = '${req.query.pass}';`;
     client.query(COMMAND, (err, res) => {
              if(err){ r.status(501).send("ERROR: Could not submit user information!"); }
              else{ r.status(200).send(res); }
@@ -179,11 +178,11 @@ app.post('/signup/user', jsonParser, async (req, r) => {
 //Sends company name, login id (email), password
 app.post('/signup/company', jsonParser, async (req, r) => {
     const COMMAND = 
-    `INSERT INTO companies (cname, loginid, pass)
-    VALUES (${req.query.cname}, ${req.query.loginid}, ${req.query.pass})
+    `INSERT INTO "lancer-data".companies (cname, loginid, pass)
+    VALUES ('${req.query.cname}', '${req.query.loginid}', '${req.query.pass}')
     ON DUPLICATE KEY UPDATE
-    cname = ${req.query.cname},
-    pass = ${req.query.pass};`;
+    cname = '${req.query.cname}',
+    pass = '${req.query.pass}';`;
     client.query(COMMAND, (err, res) => {
              if(err){ r.status(501).send("ERROR: Could not submit company information!"); }
              else{ r.status(200).send(res); }
@@ -192,8 +191,8 @@ app.post('/signup/company', jsonParser, async (req, r) => {
 });
 
 app.get('/signin', jsonParser, async (req, r) => {
-    const COMMAND = `SELECT fname, lname FROM users 
-    WHERE email = ${req.query.email} AND pass = ${req.query.pass};`;
+    const COMMAND = `SELECT fname, lname FROM "lancer-data".users 
+    WHERE email = '${req.query.email}' AND pass = '${req.query.pass}';`;
     client.query(COMMAND, (err, res) => {
         if(err){ r.status(501).send("ERROR: Could not retrieve user information! Email or password is incorrect."); }
         else{ r.status(200).send(res); }
@@ -202,9 +201,9 @@ app.get('/signin', jsonParser, async (req, r) => {
 });
 
 app.get('/company/get-applicants', jsonParser, async (req, r) => {
-    const COMMAND = `SELECT fname, lname, email, job FROM applications, jobs, companies 
+    const COMMAND = `SELECT fname, lname, email, job FROM "lancer-data".applications, "lancer-data".jobs, "lancer-data".companies 
     WHERE applications.job = jobs.id AND jobs.cid = companies.loginid 
-    AND companies.loginid = ${req.query.loginid};`;
+    AND companies.loginid = '${req.query.loginid}';`;
     client.query(COMMAND, (err, res) => {
         if(err){ r.status(501).send("ERROR: Could not retrieve application information!"); }
         else{ r.status(200).send(res); }
