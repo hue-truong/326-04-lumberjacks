@@ -3,7 +3,7 @@ const trendingCompanies = document.getElementById("trendingCompanies");
 
 
 async function fetchTopPics(){
-  const tpResponse = await fetch(`http://localhost:3000/companies/get-top-picks`
+  const tpResponse = await fetch(`companies/get-top-picks`
   , {
     method: 'GET',
     
@@ -13,7 +13,7 @@ async function fetchTopPics(){
   return data;
 }
 async function fetchTopCompanies(){
-  const tcResponse = await fetch(`http://localhost:3000/companies/get-top-picks`
+  const tcResponse = await fetch(`companies/get-top-picks`
   , {
     method: 'GET',
   });

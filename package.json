@@ -2,7 +2,6 @@
     "name": "326-04-lumberjacks",
     "type": "module",
     "main": "backend.js",
-    "proxy": "http://localhost:3000",
     "dependencies": {
         "express": "^4.17.3",
         "morgan": "^1.10.0",
