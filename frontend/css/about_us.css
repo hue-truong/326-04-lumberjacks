@@ -3,20 +3,8 @@
     padding-right: 200px;
     padding-top: 100px;
 }
-#broll{
-    position: absolute; 
-    right: 0; 
-    bottom: 0;
-    min-width: 100%; 
-    min-height: 100%;
-    width: auto; 
-    height: auto; 
-    z-index: -100;
-    background-size: cover;
-    overflow: hidden;
-}
+
 .showcase-container{
-    overflow: hidden;
     text-align: center;
     height: 100px;
 }
@@ -42,7 +30,6 @@
     font-size: 40px;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: black;
-    position: absolute;
     top: 500px;
     left: 200px
 
@@ -62,12 +49,11 @@
 }
 .grid-container{
     display: grid;
-    grid-template-columns: repeat(8, auto);
+    grid-template-columns: repeat(3, auto);
     grid-gap: 10px;
     width: 500px;
-    height: 500px;
+    height: 350px;
     padding-top: 10px;
-    position: absolute;
     left: 200px;
     top: 550px;
     
