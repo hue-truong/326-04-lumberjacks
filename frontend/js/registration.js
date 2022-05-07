@@ -8,7 +8,7 @@ const signinEmail = document.getElementById("email2");
 const signinPassword = document.getElementById("password2");
 const signinButton = document.getElementById("signin-button");
 
-signupButton.addEventListener("click", ()=>{
+signupButton.addEventListener("click", async()=>{
     if(signupName.value.length !== 0 && 
         signupEmail.value.length !== 0 &&
         signupPassword.value.length !== 0 &&
@@ -25,30 +25,33 @@ signupButton.addEventListener("click", ()=>{
                 }
             }
             else{
-                console.error("Password should be at least 8-characers long.");
+                signupPassword.classList.add("invalid");
+                alert("Password should be at least 8-characers long.");
             }
         }
         else{
-            console.error("Not a valid e-mail address. Should look like example@lancer.com");
+            signupEmail.classList.add("invalid");
+            alert("Not a valid e-mail address. Should look like example@lancer.com");
         }
     }
     else{
-        console.error("Incomplete or missing credentials.");
+        alert("Incomplete or missing credentials.");
     }
 });
 
-signinButton.addEventListener("click", ()=>{
+signinButton.addEventListener("click", async()=>{
     if(signinEmail.value.length !== 0 &&
         signinPassword.value.length !== 0){
         if(regexTest(signinEmail.value)){ //if email regex works
             await signInRequest(signinEmail, signinPassword);
         }
         else{
-            console.error("Not a valid e-mail address. Should look like example@lancer.com");
+            signinEmail.classList.add("invalid");
+            alert("Not a valid e-mail address. Should look like example@lancer.com");
         }
     }
     else{
-        console.error("Incomplete or missing credentials.");
+        alert("Incomplete or missing credentials.");
     }
 });
 

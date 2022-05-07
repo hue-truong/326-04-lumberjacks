@@ -1,0 +1,37 @@
+.content-container{
+    display: flex;
+    justify-content: center;
+    height: 700px;
+    margin-right: -10px;
+    padding-right: 900px;
+    background-color: rgb(245, 245, 245);
+    gap: 10px;
+    align-items: center;
+}
+
+.regitem {
+    border: 2px solid rgb(178, 187, 202);
+    border-radius: 5px;
+    background-color: rgb(245, 245, 245);
+    height: 400px;
+    width: 400px;
+    padding-left: 20px;
+    padding-top: 20px;
+    font-size: large;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+   
+}
+
+.button{
+    color: white;
+    background-color: rgb(40, 97, 172);
+    margin-block-start: 100px;
+}
+
+.infobox{
+    border-radius: 5px;
+}
+
+.invalid{
+    border: 2px solid rgb(255, 0, 0);
+}
