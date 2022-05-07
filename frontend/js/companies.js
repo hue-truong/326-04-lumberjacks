@@ -1,7 +1,7 @@
 const gridGroup = document.getElementById("display-container");
 
 async function fetchCompany1() {
-  const company1 = await fetch(`http://localhost:3000/companies/company/get-jobs`
+  const company1 = await fetch(`/companies/company/get-jobs`
     , {
       method: 'GET',
     });
@@ -10,7 +10,7 @@ async function fetchCompany1() {
 }
 
 async function fetchCompany2() {
-  const company2 = await fetch(`http://localhost:3000/companies/company/get-jobs`
+  const company2 = await fetch(`/companies/company/get-jobs`
     , {
       method: 'GET',
     });
@@ -19,7 +19,7 @@ async function fetchCompany2() {
 }
 
 async function fetchCompany3() {
-  const company3 = await fetch(`http://localhost:3000/companies/company/get-jobs`
+  const company3 = await fetch(`/companies/company/get-jobs`
     , {
       method: 'GET',
     });
@@ -28,7 +28,7 @@ async function fetchCompany3() {
 }
 
 async function fetchCompany4() {
-  const company4 = await fetch(`http://localhost:3000/companies/company/get-jobs`
+  const company4 = await fetch(`/companies/company/get-jobs`
     , {
       method: 'GET',
     });
