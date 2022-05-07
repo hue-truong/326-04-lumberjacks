@@ -61,7 +61,7 @@ function regexTest(emailStr){
 }
 
 async function userRequest(userName, emailAddress, userPassword){
-await fetch(`http://localhost:3000/signup/user`,{
+await fetch(`/signup/user`,{
     method: 'POST',
     headers: {
         'Accept': 'application/json',
@@ -72,7 +72,7 @@ await fetch(`http://localhost:3000/signup/user`,{
 }
 
 async function companyRequest(companyName, emailAddress, companyPassword){
-    await fetch(`http://localhost:3000/signup/company`,{
+    await fetch(`/signup/company`,{
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -83,7 +83,7 @@ async function companyRequest(companyName, emailAddress, companyPassword){
     }
 
     async function signInRequest(emailAddress, generalPassword){
-    await fetch(`http://localhost:3000/signin`,{
+    await fetch(`/signin`,{
         method: 'GET',
         headers: {
             'Accept': 'application/json',
