@@ -1,7 +1,7 @@
 const displayContainer = document.getElementById("display-container");
 
 async function fetchCompany1() {
-  const company1 = await fetch(`/companies/company/get-jobs`
+  const company1 = await fetch(`/companies/get-jobs?company=Google`
     , {
       method: 'GET',
     });
@@ -10,16 +10,17 @@ async function fetchCompany1() {
 }
 
 async function fetchCompany2() {
-  const company2 = await fetch(`/companies/company/get-jobs`
+  const company2 = await fetch(`/companies/get-jobs?company=Sony`
     , {
       method: 'GET',
+      
     });
   const data = await company2.json();
   return data;
 }
 
 async function fetchCompany3() {
-  const company3 = await fetch(`/companies/company/get-jobs`
+  const company3 = await fetch(`/companies/get-jobs?company=Ubisoft`
     , {
       method: 'GET',
     });
@@ -28,7 +29,7 @@ async function fetchCompany3() {
 }
 
 async function fetchCompany4() {
-  const company4 = await fetch(`/companies/company/get-jobs`
+  const company4 = await fetch(`/companies/get-jobs?company=Apple`
     , {
       method: 'GET',
     });
@@ -68,7 +69,7 @@ function buildJobs(company) {
   const gridGroup = document.createElement("div");
   gridGroup.setAttribute("class","grid-group");
 
-  const companyName = document.createTextNode(company[0].name);
+  const companyName = document.createTextNode(company[0].cname);
   gridTitle.appendChild(companyName);
 
   for (let i = 0; i < 5; ++i) {
@@ -82,26 +83,18 @@ function buildJobs(company) {
 
     const text = document.createElement('span')
     text.setAttribute('class', 'jobtitle')
-    text.innerText='HELLO'
+    text.innerText=data.title
 
     href.appendChild(text)
 
 
     const companyImage = document.createElement("img");
     companyImage.setAttribute("src", data.img);
-    companyImage.setAttribute("alt", data.job_title);
+    companyImage.setAttribute("alt", data.title);
     companyImage.setAttribute("class", "img");
 
-
-    const jobDiv = document.createElement("div");
-    jobDiv.setAttribute("class", "jobtitle")
-
-    jobDiv.appendChild(href);
-
     styleDiv.appendChild(companyImage);
-    
-    styleDiv.appendChild(jobDiv);
-    console.log(styleDiv);
+    styleDiv.appendChild(href);
     gridContainer.appendChild(styleDiv);
     gridTitle.appendChild(gridContainer);
     gridGroup.appendChild(gridTitle);

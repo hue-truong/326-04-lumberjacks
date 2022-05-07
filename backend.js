@@ -109,19 +109,15 @@ app.get('/companies/get-companies-jobs', jsonParser, async (req, r) => {
     r.status(200).send(test)
 })
 
+// Gets 5 jobs from a given companies in the jobs table
 const job_titles = ['UI Artist', 'Applications Development', 'Software Development'];
 app.get('/companies/get-jobs', jsonParser, async (req, r) => {
-    const name = faker.company.companyName()
-    const img = faker.image.business(512, 512, true)
-    const test = new Array(5).fill().map(x => {
-        return {
-            name: name,
-            img: img,
-            job_title: faker.random.arrayElement(job_titles)
-        }
-    })
+    const COMMAND = `SELECT title, cname, img FROM "lancer-data".jobs, "lancer-data".companies WHERE jobs.cid = companies.loginid AND companies.cname = '${req.query.company}'`;
 
-    r.status(200).send(test)
+    client.query(COMMAND, (err, res) => {
+        if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
+        else{ r.status(200).send(res.rows); }
+    });
 });
 
 //Takes given user data and submits to a new "applications" table
