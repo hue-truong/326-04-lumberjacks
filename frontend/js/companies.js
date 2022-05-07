@@ -1,4 +1,4 @@
-const gridGroup = document.getElementById("display-container");
+const displayContainer = document.getElementById("display-container");
 
 async function fetchCompany1() {
   const company1 = await fetch(`/companies/company/get-jobs`
@@ -59,7 +59,15 @@ buildJobs(company4);
 
 
 function buildJobs(company) {
-  const gridTitle = document.createElement("div");
+  const gridTitle = document.createElement("span");
+  gridTitle.setAttribute("class","grid-title");
+
+  const gridContainer = document.createElement("div");
+  gridContainer.setAttribute("class","grid-container");
+
+  const gridGroup = document.createElement("div");
+  gridGroup.setAttribute("class","grid-group");
+
   const companyName = document.createTextNode(company[0].name);
   gridTitle.appendChild(companyName);
 
@@ -84,7 +92,11 @@ function buildJobs(company) {
 
     styleDiv.appendChild(companyImage);
     styleDiv.appendChild(jobDiv);
-    gridGroup.appendChild(styleDiv);
+    console.log(styleDiv);
+    gridContainer.appendChild(styleDiv);
+    gridTitle.appendChild(gridContainer);
+    gridGroup.appendChild(gridTitle);
+    
   }
-
+  displayContainer.appendChild(gridGroup);
 }
