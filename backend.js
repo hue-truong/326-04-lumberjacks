@@ -1,4 +1,5 @@
 import express from 'express';
+import expressSession from 'express-session';
 import logger from 'morgan';
 import path from 'path'
 import * as http from 'http';
@@ -6,17 +7,48 @@ import * as url from 'url';
 import pkg from 'pg';
 const { Pool, Client } = pkg;
 import { faker } from '@faker-js/faker';
-import 'dotenv/config'
+import auth from './auth.js';
+import users from './users.js';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+//import 'dotenv/config';
 
-const client = new Client({ connectionString: process.env.DATABASE_URI, ssl: true});
+const client = new Client({ connectionString: process.env.DATABASE_URL, ssl: true});
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(dirname(__filename));
 
 const jsonParser = express.json();
 const app = express();
 const port = process.env.PORT || 3000;
 
+const sessionConfig = {
+    // set this encryption key in Heroku config (never in GitHub)!
+    secret: process.env.SECRET || 'SECRET',
+    resave: false,
+    saveUninitialized: false,
+  };
+
+// Setup the session middleware
+app.use(expressSession(sessionConfig));
+
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
+
+app.use(express.static('client'));
+// Configure our authentication strategy
+auth.configure(app);
+
+function checkLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+      // If we are authenticated, run the next route.
+      next();
+    } else {
+      // Otherwise, redirect to the login page.
+      res.redirect('/login');
+    }
+  }
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -110,6 +142,7 @@ app.get('/companies/get-companies-jobs', jsonParser, async (req, r) => {
 app.get('/companies/get-jobs', jsonParser, async (req, r) => {
     const COMMAND = `SELECT title, cname, img, descrip  FROM "lancer-data".jobs, "lancer-data".companies WHERE jobs.cid = companies.loginid AND companies.cname = '${req.query.company}'`;
     client.query(COMMAND, (err, res) => {
+        console.log(err);
         if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
         else{ r.status(200).send(res.rows); }
     });
