@@ -135,12 +135,51 @@ client.connect();
 //Both the if-statement and app.get used to specify the path to index.html for the Heroku server
 app.use(express.static('./frontend'));
 
+app.get('/description', async (req, r) => {
+    // const COMMAND = `SELECT title, descrip, cname, img FROM "lancer-data".jobs, "lancer-data".companies WHERE jobs.cid = companies.loginid AND companies.cname = '${req.query.company}';`
+    const COMMAND = `SELECT title, descrip, cname, img FROM "lancer-data".jobs, "lancer-data".companies WHERE jobs.cid = companies.loginid AND jobs.id = ${req.query.id};`
+    client.query(COMMAND, (err, res) => {
+        if(err){ r.status(501).send(); }
+        else{ 
+            r.writeHead(200, { 'Content-Type': 'text/html' });
+            r.write(`<!DOCTYPE html> \
+            <head>\
+                <title>Lancer</title> \
+                <link rel="stylesheet" href="/css/main.css">\
+                <link rel="stylesheet" href="/css/about_us.css">\
+                <link rel="icon" href="/media/Paomedia-Small-N-Flat-Sign-up.ico">\
+            </head>\
+            <body>\
+                <ul class="nav-ul">\
+                    <li class="logo"><a href="/"><img alt="logo" src="/media/logo.png" width="100"></a></li>\
+                    <li class="nav-li"><a href="/html/jobs.html" class="nav-li-a">Jobs</a></li>\
+                    <li class="nav-li"><a href="/html/companies.html" class="nav-li-a">Companies</a></li>\
+                    <li class="nav-li"><a href="/html/aboutus.html" class="nav-li-a">About</a></li>\
+                    <!-- <li class="nav-li"><a href="/html/contact.html" class="nav-li-a">Contact Us</a></li> -->\
+                    <li class="nav-li nav-li-right"><a href="/html/registration.html" class="nav-li-a">Login / Sign Up</a></li>\
+                </ul>\
+                <div class="showcase-container">\
+                    <div class="showcase-overlay">\
+                        <span class="showcase-tagline">${res.rows[0].title}</span><br>\
+                    </div>\
+                </div>\
+                <div class="content-container">\
+                ${res.rows[0].descrip}\
+                <div><a class="button blue" href="html/registration.html"> Submit an Application >> </a></div>\
+                </div>\
+                <div class="footer"></div>\
+            </body>`);
+            r.end();
+         }
+    });
+})
+
 // Query jobs from specific company in Jobs table
 app.get('/companies/company/get-jobs', async (req, r) => {
     // const COMMAND = `SELECT title, descrip, cname, img FROM "lancer-data".jobs, "lancer-data".companies WHERE jobs.cid = companies.loginid AND companies.cname = '${req.query.company}';`
     const COMMAND = `SELECT * FROM "lancer-data".companies`
     client.query(COMMAND, (err, res) => {
-        console.log(res)
+        
         if(err){ r.status(501).send(); }
         else{ r.status(200).send(res); }
     });
@@ -169,27 +208,27 @@ app.get('/users/get-user', async (req, r) => {
 
 // Query random top picks for home page
 app.get('/companies/get-top-picks', jsonParser, async (req, r) => {
-    const COMMAND = `SELECT title, cname, img FROM "lancer-data".jobs, "lancer-data".companies WHERE jobs.cid = companies.loginid ORDER BY RANDOM() LIMIT 5;`
+    const COMMAND = `SELECT id, title, cname, img FROM "lancer-data".jobs, "lancer-data".companies WHERE jobs.cid = companies.loginid ORDER BY RANDOM() LIMIT 5;`
     client.query(COMMAND, (err, res) => {
-        console.log(res);
+        ;
         if(err){ r.status(501).send(); }
         else{ r.status(200).send(res.rows); }
     });
 })
 
 app.get('/companies/get-trending-companies', jsonParser, async (req, r) => {
-    const COMMAND = `SELECT title, cname, img FROM "lancer-data".jobs, "lancer-data".companies WHERE jobs.cid = companies.loginid ORDER BY RANDOM() LIMIT 5;`
+    const COMMAND = `SELECT id, title, cname, img FROM "lancer-data".jobs, "lancer-data".companies WHERE jobs.cid = companies.loginid ORDER BY RANDOM() LIMIT 5;`
     client.query(COMMAND, (err, res) => {
-        console.log(res);
+        ;
         if(err){ r.status(501).send(); }
         else{ r.status(200).send(res.rows); }
     });
 })
 
 app.get('/jobs/get-jobs', jsonParser, async (req, r) => {
-    const COMMAND = `SELECT title, cname, img FROM "lancer-data".jobs, "lancer-data".companies WHERE jobs.cid = companies.loginid ORDER BY RANDOM() LIMIT 5;`
+    const COMMAND = `SELECT id, title, cname, img FROM "lancer-data".jobs, "lancer-data".companies WHERE jobs.cid = companies.loginid ORDER BY RANDOM() LIMIT 5;`
     client.query(COMMAND, (err, res) => {
-        console.log(res);
+        ;
         if(err){ r.status(501).send(); }
         else{ r.status(200).send(res.rows); }
     });
@@ -197,9 +236,8 @@ app.get('/jobs/get-jobs', jsonParser, async (req, r) => {
 
 // Gets 5 jobs from a given companies in the jobs table
 app.get('/companies/get-jobs', jsonParser, async (req, r) => {
-    const COMMAND = `SELECT title, cname, img, descrip  FROM "lancer-data".jobs, "lancer-data".companies WHERE jobs.cid = companies.loginid AND companies.cname = '${req.query.company}'`;
+    const COMMAND = `SELECT id, title, cname, img, descrip  FROM "lancer-data".jobs, "lancer-data".companies WHERE jobs.cid = companies.loginid AND companies.cname = '${req.query.company}'`;
     client.query(COMMAND, (err, res) => {
-        console.log(err);
         if(err){ r.status(501).send(); }
         else{ r.status(200).send(res.rows); }
     });

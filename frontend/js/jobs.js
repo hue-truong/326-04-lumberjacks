@@ -60,7 +60,7 @@ for(let i = 0; i<5; ++i){
 
     const href = document.createElement('a')
     href.setAttribute('class', 'jobclick')
-    href.setAttribute('href', '')
+    href.setAttribute('href', `/description?id=${technologyData.id}`)
 
     const text = document.createElement('span')
     text.setAttribute('class', 'jobtitle')
@@ -84,7 +84,7 @@ for(let i = 0; i<5; ++i){
     
     const href2 = document.createElement('a')
     href2.setAttribute('class', 'jobclick')
-    href2.setAttribute('href', '')
+    href2.setAttribute('href', `/description?id=${architectureData.id}`)
 
     const text2 = document.createElement('span')
     text2.setAttribute('class', 'jobtitle')
@@ -107,7 +107,7 @@ for(let i = 0; i<5; ++i){
 
     const href3 = document.createElement('a')
     href3.setAttribute('class', 'jobclick')
-    href3.setAttribute('href', '')
+    href3.setAttribute('href', `/description?id=${data_analysisData.id}`)
 
     const text3 = document.createElement('span')
     text3.setAttribute('class', 'jobtitle')
@@ -129,7 +129,7 @@ for(let i = 0; i<5; ++i){
 
     const href4 = document.createElement('a')
     href4.setAttribute('class', 'jobclick')
-    href4.setAttribute('href', '')
+    href4.setAttribute('href', `/description?id=${entertainmentData.id}`)
 
     const text4 = document.createElement('span')
     text4.setAttribute('class', 'jobtitle')

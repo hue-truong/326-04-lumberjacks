@@ -9,7 +9,6 @@ async function fetchTopPics(){
     
   })
   const data = await tpResponse.json();
-  console.log(data);
   return data;
 }
 async function fetchTopCompanies(){
@@ -37,7 +36,7 @@ for(let i = 0; i<5; ++i){
 
     const href = document.createElement('a')
     href.setAttribute('class', 'jobclick')
-    href.setAttribute('href', '/descriptions')
+    href.setAttribute('href', `/description?id=${data1.id}`)
 
     const text = document.createElement('span')
     text.setAttribute('class', 'jobtitle')
@@ -59,7 +58,7 @@ for(let i = 0; i<5; ++i){
 
     const href2 = document.createElement('a')
     href2.setAttribute('class', 'jobclick')
-    href2.setAttribute('href', '/descriptions')
+    href2.setAttribute('href', `/description?id=${data2.id}`)
 
     const text2 = document.createElement('span')
     text2.setAttribute('class', 'jobtitle')

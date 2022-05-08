@@ -79,14 +79,13 @@ function buildJobs(company) {
 
     const href = document.createElement('a')
     href.setAttribute('class', 'jobclick')
-    href.setAttribute('href', '/descriptions')
+    href.setAttribute('href', `/description?id=${data.id}`)
 
     const text = document.createElement('span')
     text.setAttribute('class', 'jobtitle')
     text.innerText=data.title
 
     href.appendChild(text)
-
 
     const companyImage = document.createElement("img");
     companyImage.setAttribute("src", data.img);
