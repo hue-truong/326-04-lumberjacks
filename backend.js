@@ -10,7 +10,6 @@ import 'dotenv/config'
 
 const client = new Client({ connectionString: process.env.DATABASE_URI, ssl: true});
 
-client.connect();
 const jsonParser = express.json();
 const app = express();
 const port = process.env.PORT || 3000;
@@ -25,7 +24,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-
+client.connect();
 //Both the if-statement and app.get used to specify the path to index.html for the Heroku server
 app.use(express.static('./frontend'));
 
@@ -59,7 +58,6 @@ app.get('/users/get-user', async (req, r) => {
         if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
         else{ r.status(200).send(res); }
     });
-    client.end();
 })
 
 // Query random top picks for home page
@@ -70,7 +68,6 @@ app.get('/companies/get-top-picks', jsonParser, async (req, r) => {
         if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
         else{ r.status(200).send(res); }
     });
-    client.end();
 })
 
 app.get('/companies/get-trending-companies', jsonParser, async (req, r) => {
@@ -110,10 +107,8 @@ app.get('/companies/get-companies-jobs', jsonParser, async (req, r) => {
 })
 
 // Gets 5 jobs from a given companies in the jobs table
-const job_titles = ['UI Artist', 'Applications Development', 'Software Development'];
 app.get('/companies/get-jobs', jsonParser, async (req, r) => {
-    const COMMAND = `SELECT title, cname, img FROM "lancer-data".jobs, "lancer-data".companies WHERE jobs.cid = companies.loginid AND companies.cname = '${req.query.company}'`;
-
+    const COMMAND = `SELECT title, cname, img, descrip  FROM "lancer-data".jobs, "lancer-data".companies WHERE jobs.cid = companies.loginid AND companies.cname = '${req.query.company}'`;
     client.query(COMMAND, (err, res) => {
         if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
         else{ r.status(200).send(res.rows); }
@@ -135,7 +130,6 @@ app.post('/submitapp', jsonParser, async (req, r) => {
         if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
         else{ r.status(200).send(res); }
     });
-    client.end();
 });
 
 //Takes data from HTML form and submits info to "users" table
@@ -153,7 +147,6 @@ app.post('/signup/user', jsonParser, async (req, r) => {
         if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
         else{ r.status(200).send(res); }
     });
-    client.end();
 });
 
 //Takes data from HTML form and submits info to "companies" table
@@ -170,7 +163,6 @@ app.post('/signup/company', jsonParser, async (req, r) => {
         if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
         else{ r.status(200).send(res); }
     });
-    client.end();
 });
 
 app.get('/signin', jsonParser, async (req, r) => {
@@ -181,7 +173,6 @@ app.get('/signin', jsonParser, async (req, r) => {
         if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
         else{ r.status(200).send(res); }
     });
-    client.end();
 });
 
 app.get('/company/get-applicants', jsonParser, async (req, r) => {
@@ -193,7 +184,6 @@ app.get('/company/get-applicants', jsonParser, async (req, r) => {
         if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
         else{ r.status(200).send(res); }
     });
-    client.end();
 });
 
 app.listen(port, () => {
