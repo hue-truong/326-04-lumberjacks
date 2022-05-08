@@ -1,7 +1,7 @@
 import express from 'express';
 import expressSession from 'express-session';
 import logger from 'morgan';
-import path from 'path'
+import path from 'path';
 import * as http from 'http';
 import * as url from 'url';
 import pkg from 'pg';
@@ -46,9 +46,84 @@ function checkLoggedIn(req, res, next) {
       next();
     } else {
       // Otherwise, redirect to the login page.
-      res.redirect('/login');
+      res.redirect('/signin');
     }
-  }
+};
+
+app.get('/', checkLoggedIn, (req, res) => {
+    res.send('hello world');
+  });
+  
+  // Handle the URL /login (just output the login.html file).
+  app.get('/signin', (req, res) =>
+    res.sendFile('client/login.html', { root: __dirname })
+  );
+  
+  // Handle post data from the login.html form.
+  app.post(
+    '/signin',
+    auth.authenticate('local', {
+      // use username/password authentication
+      successRedirect: '/private', // when we login, go to /private
+      failureRedirect: '/signin', // otherwise, back to login
+    })
+  );
+  
+  // Handle logging out (takes us back to the login page).
+  app.get('/logout', (req, res) => {
+    req.logout(); // Logs us out!
+    res.redirect('/signin'); // back to login
+  });
+  
+  // Like login, but add a new user and password IFF one doesn't exist already.
+  // If we successfully add a new user, go to /login, else, back to /register.
+  // Use req.body to access data (as in, req.body['username']).
+  // Use res.redirect to change URLs.
+  app.post('/register', (req, res) => {
+    const { username, password } = req.body;
+    if (users.addUser(username, password)) {
+      res.redirect('/signin');
+    } else {
+      res.redirect('/register');
+    }
+  });
+  
+  // Register URL
+  app.get('/register', (req, res) =>
+    res.sendFile('./frontend/html/registration.html', { root: __dirname })
+  );
+  
+  // Private data
+  app.get(
+    '/private',
+    checkLoggedIn, // If we are logged in (notice the comma!)...
+    (req, res) => {
+      // Go to the user's page.
+      res.redirect('/private/' + req.user);
+    }
+  );
+  
+  // A dummy page for the user.
+  app.get(
+    '/private/:userID/',
+    checkLoggedIn, // We also protect this route: authenticated...
+    (req, res) => {
+      // Verify this is the right user.
+      if (req.params.userID === req.user) {
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.write('<H1>HELLO ' + req.params.userID + '</H1>');
+        res.write('<br/><a href="/logout">click here to logout</a>');
+        res.end();
+      } else {
+        res.redirect('/private/');
+      }
+    }
+  );
+  
+  app.get('*', (req, res) => {
+    res.send('Error');
+  });
+
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -198,15 +273,15 @@ app.post('/signup/company', jsonParser, async (req, r) => {
     });
 });
 
-app.get('/signin', jsonParser, async (req, r) => {
-    const COMMAND = `SELECT fname, lname FROM "lancer-data".users 
-    WHERE email = '${req.query.email}' AND pass = '${req.query.pass}';`;
+// app.get('/signin', jsonParser, async (req, r) => {
+//     const COMMAND = `SELECT fname, lname FROM "lancer-data".users 
+//     WHERE email = '${req.query.email}' AND pass = '${req.query.pass}';`;
 
-    client.query(COMMAND, (err, res) => {
-        if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
-        else{ r.status(200).send(res); }
-    });
-});
+//     client.query(COMMAND, (err, res) => {
+//         if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
+//         else{ r.status(200).send(res); }
+//     });
+// });
 
 app.get('/company/get-applicants', jsonParser, async (req, r) => {
     const COMMAND = `SELECT fname, lname, email, job FROM "lancer-data".applications, "lancer-data".jobs, "lancer-data".companies 
