@@ -79,7 +79,7 @@ function buildJobs(company) {
 
     const href = document.createElement('a')
     href.setAttribute('class', 'jobclick')
-    href.setAttribute('href', '')
+    href.setAttribute('href', '/descriptions')
 
     const text = document.createElement('span')
     text.setAttribute('class', 'jobtitle')

@@ -11,7 +11,7 @@ import auth from './auth.js';
 import users from './users.js';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-//import 'dotenv/config';
+import 'dotenv/config';
 
 const client = new Client({ connectionString: process.env.DATABASE_URL, ssl: true});
 
@@ -66,7 +66,7 @@ app.get('/companies/company/get-jobs', async (req, r) => {
     const COMMAND = `SELECT * FROM "lancer-data".companies`
     client.query(COMMAND, (err, res) => {
         console.log(res)
-        if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
+        if(err){ r.status(501).send(); }
         else{ r.status(200).send(res); }
     });
 })
@@ -87,55 +87,37 @@ app.get('/users/get-user', async (req, r) => {
     const COMMAND = `SELECT * FROM users WHERE email = ${req.query.email}`
 
     client.query(COMMAND, (err, res) => {
-        if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
+        if(err){ r.status(501).send(); }
         else{ r.status(200).send(res); }
     });
 })
 
 // Query random top picks for home page
 app.get('/companies/get-top-picks', jsonParser, async (req, r) => {
-    const COMMAND = 'SELECT * FROM "lancer-data".companies ORDER BY RANDOM() LIMIT 5'
-
+    const COMMAND = `SELECT title, cname, img FROM "lancer-data".jobs, "lancer-data".companies WHERE jobs.cid = companies.loginid ORDER BY RANDOM() LIMIT 5;`
     client.query(COMMAND, (err, res) => {
-        if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
-        else{ r.status(200).send(res); }
+        console.log(res);
+        if(err){ r.status(501).send(); }
+        else{ r.status(200).send(res.rows); }
     });
 })
 
 app.get('/companies/get-trending-companies', jsonParser, async (req, r) => {
-    const test = new Array(5).fill().map(x => {
-        return {
-            name: faker.company.companyName(),
-            img: faker.image.cats(512, 512, true)
-        }
-    })
-
-    r.status(200).send(test)
+    const COMMAND = `SELECT title, cname, img FROM "lancer-data".jobs, "lancer-data".companies WHERE jobs.cid = companies.loginid ORDER BY RANDOM() LIMIT 5;`
+    client.query(COMMAND, (err, res) => {
+        console.log(res);
+        if(err){ r.status(501).send(); }
+        else{ r.status(200).send(res.rows); }
+    });
 })
 
-app.get('/companies/get-companies', jsonParser, async (req, r) => {
-
-    const test = new Array(5).fill().map(x => {
-        return {
-            name: faker.company.companyName(),
-            img: faker.image.cats(512, 512, true)
-        }
-    })
-
-    r.status(200).send(test)
-})
-
-app.get('/companies/get-companies-jobs', jsonParser, async (req, r) => {
-
-    const test = new Array(5).fill().map(x => {
-        return {
-            name: faker.company.companyName(),
-            img: faker.image.cats(512, 512, true),
-            job_title: faker.hacker.noun()
-        }
-    })
-
-    r.status(200).send(test)
+app.get('/jobs/get-jobs', jsonParser, async (req, r) => {
+    const COMMAND = `SELECT title, cname, img FROM "lancer-data".jobs, "lancer-data".companies WHERE jobs.cid = companies.loginid ORDER BY RANDOM() LIMIT 5;`
+    client.query(COMMAND, (err, res) => {
+        console.log(res);
+        if(err){ r.status(501).send(); }
+        else{ r.status(200).send(res.rows); }
+    });
 })
 
 // Gets 5 jobs from a given companies in the jobs table
@@ -143,7 +125,7 @@ app.get('/companies/get-jobs', jsonParser, async (req, r) => {
     const COMMAND = `SELECT title, cname, img, descrip  FROM "lancer-data".jobs, "lancer-data".companies WHERE jobs.cid = companies.loginid AND companies.cname = '${req.query.company}'`;
     client.query(COMMAND, (err, res) => {
         console.log(err);
-        if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
+        if(err){ r.status(501).send(); }
         else{ r.status(200).send(res.rows); }
     });
 });
@@ -160,7 +142,7 @@ app.post('/submitapp', jsonParser, async (req, r) => {
     job = ${req.query.job};`;
 
     client.query(COMMAND, (err, res) => {
-        if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
+        if(err){ r.status(501).send(); }
         else{ r.status(200).send(res); }
     });
 });
@@ -177,7 +159,7 @@ app.post('/signup/user', jsonParser, async (req, r) => {
     pass = '${req.query.pass}';`;
 
     client.query(COMMAND, (err, res) => {
-        if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
+        if(err){ r.status(501).send(); }
         else{ r.status(200).send(res); }
     });
 });
@@ -193,7 +175,7 @@ app.post('/signup/company', jsonParser, async (req, r) => {
     pass = '${req.query.pass}';`;
 
     client.query(COMMAND, (err, res) => {
-        if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
+        if(err){ r.status(501).send(); }
         else{ r.status(200).send(res); }
     });
 });
@@ -203,7 +185,7 @@ app.get('/signin', jsonParser, async (req, r) => {
     WHERE email = '${req.query.email}' AND pass = '${req.query.pass}';`;
 
     client.query(COMMAND, (err, res) => {
-        if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
+        if(err){ r.status(501).send(); }
         else{ r.status(200).send(res); }
     });
 });
@@ -214,7 +196,7 @@ app.get('/company/get-applicants', jsonParser, async (req, r) => {
     AND companies.loginid = '${req.query.loginid}';`;
 
     client.query(COMMAND, (err, res) => {
-        if(err){ r.status(501).send("ERROR: Could not get top picks!"); }
+        if(err){ r.status(501).send(); }
         else{ r.status(200).send(res); }
     });
 });

@@ -44,6 +44,23 @@
     padding-top: 20px;
     padding-bottom: 100px;
 }
+.jobclick{
+    position: relative;
+    top: -103px;
+    height: 200px;
+    width: 240px;
+    display: block;
+    color: rgb(194, 194, 194);
+    text-align: center;
+    margin:auto;
+     /* this is where you move up and down, left and right*/
+    text-decoration: none;
+}
+
+.jobtitle {
+    position: relative;
+    top: 143px;
+}
 .grid-container{
     display: grid;
     grid-template-columns: repeat(8, auto);

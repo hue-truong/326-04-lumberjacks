@@ -10,7 +10,7 @@ const entertainmentArr = await fetchEntertainment();
 
 
 async function fetchTech(){
-    const techResponse = await fetch(`/companies/get-companies`
+    const techResponse = await fetch(`/jobs/get-jobs`
     , {
       method: 'GET',
     });
@@ -19,7 +19,7 @@ async function fetchTech(){
   }
 
   async function fetchArch(){
-    const archResponse = await fetch(`/companies/get-companies`
+    const archResponse = await fetch(`/jobs/get-jobs`
     , {
       method: 'GET',
     });
@@ -28,7 +28,7 @@ async function fetchTech(){
   }
 
   async function fetchData_Analysis(){
-    const dataResponse = await fetch(`/companies/get-companies`
+    const dataResponse = await fetch(`/jobs/get-jobs`
     , {
       method: 'GET',
     });
@@ -37,7 +37,7 @@ async function fetchTech(){
   }
 
   async function fetchEntertainment(){
-    const entertainmentResponse = await fetch(`/companies/get-companies`
+    const entertainmentResponse = await fetch(`/jobs/get-jobs`
     , {
       method: 'GET',
     });
@@ -54,7 +54,7 @@ for(let i = 0; i<5; ++i){
     const tempDiv1 = document.createElement("div");
     tempDiv1.setAttribute("class", "grid-item");
     techDiv.setAttribute("src", technologyData.img);
-    techDiv.setAttribute("alt", technologyData.name);
+    techDiv.setAttribute("alt", technologyData.title);
     techDiv.setAttribute("class", "img");
     tempDiv1.appendChild(techDiv);
 
@@ -64,7 +64,7 @@ for(let i = 0; i<5; ++i){
 
     const text = document.createElement('span')
     text.setAttribute('class', 'jobtitle')
-    text.innerText= technologyData.name
+    text.innerText= technologyData.title
     href.appendChild(text)
     tempDiv1.appendChild(href)
 
@@ -78,7 +78,7 @@ for(let i = 0; i<5; ++i){
     tempDiv2.setAttribute("class", "grid-item");
     const archDiv = document.createElement("img");
     archDiv.setAttribute("src", architectureData.img);
-    archDiv.setAttribute("alt", architectureData.name);
+    archDiv.setAttribute("alt", architectureData.title);
     archDiv.setAttribute("class", "img");
     tempDiv2.appendChild(archDiv);
     
@@ -88,7 +88,7 @@ for(let i = 0; i<5; ++i){
 
     const text2 = document.createElement('span')
     text2.setAttribute('class', 'jobtitle')
-    text2.innerText= architectureData.name
+    text2.innerText= architectureData.title
     href2.appendChild(text2)
     tempDiv2.appendChild(href2)
 
@@ -101,7 +101,7 @@ for(let i = 0; i<5; ++i){
     tempDiv3.setAttribute("class", "grid-item");
     const data_analysisDiv = document.createElement("img");
     data_analysisDiv.setAttribute("src", data_analysisData.img);
-    data_analysisDiv.setAttribute("alt", data_analysisData.name);
+    data_analysisDiv.setAttribute("alt", data_analysisData.title);
     data_analysisDiv.setAttribute("class", "img");
     tempDiv3.appendChild(data_analysisDiv);
 
@@ -111,7 +111,7 @@ for(let i = 0; i<5; ++i){
 
     const text3 = document.createElement('span')
     text3.setAttribute('class', 'jobtitle')
-    text3.innerText= data_analysisData.name
+    text3.innerText= data_analysisData.title
     href3.appendChild(text3)
     tempDiv3.appendChild(href3)
 
@@ -123,7 +123,7 @@ for(let i = 0; i<5; ++i){
     tempDiv4.setAttribute("class", "grid-item");
     const entertainmentDiv = document.createElement("img");
     entertainmentDiv.setAttribute("src", entertainmentData.img);
-    entertainmentDiv.setAttribute("alt", entertainmentData.name);
+    entertainmentDiv.setAttribute("alt", entertainmentData.title);
     entertainmentDiv.setAttribute("class", "img");
     tempDiv4.appendChild(entertainmentDiv);
 
@@ -133,7 +133,7 @@ for(let i = 0; i<5; ++i){
 
     const text4 = document.createElement('span')
     text4.setAttribute('class', 'jobtitle')
-    text4.innerText= entertainmentData.name
+    text4.innerText= entertainmentData.title
     href4.appendChild(text4)
     tempDiv4.appendChild(href4)
 

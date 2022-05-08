@@ -13,7 +13,7 @@ async function fetchTopPics(){
   return data;
 }
 async function fetchTopCompanies(){
-  const tcResponse = await fetch(`companies/get-top-picks`
+  const tcResponse = await fetch(`companies/get-trending-companies`
   , {
     method: 'GET',
   });
@@ -34,8 +34,20 @@ for(let i = 0; i<5; ++i){
     topPickDiv.setAttribute("src", data1.img);
     topPickDiv.setAttribute("alt", data1.name);
     topPickDiv.setAttribute("class", "img");
+
+    const href = document.createElement('a')
+    href.setAttribute('class', 'jobclick')
+    href.setAttribute('href', '/descriptions')
+
+    const text = document.createElement('span')
+    text.setAttribute('class', 'jobtitle')
+    text.innerText=data1.title
+
+    href.appendChild(text)
+
     tempDiv1.appendChild(topPickDiv);
     topPick.appendChild(tempDiv1);
+    tempDiv1.appendChild(href)
     
     //fetch trending-companies
     const response2 = await fetchTopCompanies();
@@ -44,23 +56,22 @@ for(let i = 0; i<5; ++i){
     const trendingDiv = document.createElement("img");
     const tempDiv2 = document.createElement("div");
     tempDiv2.setAttribute("class", "grid-item");
+
+    const href2 = document.createElement('a')
+    href2.setAttribute('class', 'jobclick')
+    href2.setAttribute('href', '/descriptions')
+
+    const text2 = document.createElement('span')
+    text2.setAttribute('class', 'jobtitle')
+    text2.innerText=data2.title
+
+    href2.appendChild(text)
+
     trendingDiv.setAttribute("src", data2.img);
     trendingDiv.setAttribute("alt", data2.name);
     trendingDiv.setAttribute("class", "img");
     tempDiv2.appendChild(trendingDiv);
     trendingCompanies.appendChild(tempDiv2);
+    tempDiv2.appendChild(href2)
 }
-
-// button
-
-// const buttons = document.getElementsByClassName("button2");
-
-
-// for (let i = 0; i < buttons.length; i++) {
-//     buttons[i].addEventListener('click', callToServer); //false
-// }
-
-// function callToServer(){
-//     console.log("This will be a call to server");
-// }
 
